@@ -12,25 +12,25 @@ public class Tetris extends JPanel {
     Tetromino nextOne = Tetromino.randomOne();
     Cell[][] wall = new Cell[20][10]; // Wall is used to memorize every cell except those who belongs to currentOne and nextOne.
     final int CELL_SIZE = 26;         // The length of every cell in wall and blocks.
-    public static BufferedImage T;
-    public static BufferedImage O;
-    public static BufferedImage I;
-    public static BufferedImage J;
-    public static BufferedImage L;
-    public static BufferedImage S;
-    public static BufferedImage Z;
+    public static BufferedImage blue;
+    public static BufferedImage orange;
+    public static BufferedImage green;
+    public static BufferedImage purple;
+    public static BufferedImage red;
+    public static BufferedImage skyblue;
+    public static BufferedImage yellow;
     public static BufferedImage background;
     public static BufferedImage gameOver;
 
     static {
         try {
-            T = ImageIO.read(new File("data/blue.png"));
-            I = ImageIO.read(Tetris.class.getResource("green.png"));
-            O = ImageIO.read(Tetris.class.getResource("orange.png"));
-            J = ImageIO.read(Tetris.class.getResource("purple.png"));
-            L = ImageIO.read(Tetris.class.getResource("red.png"));
-            S = ImageIO.read(Tetris.class.getResource("skyblue.png"));
-            Z = ImageIO.read(Tetris.class.getResource("yellow.png"));
+            blue = ImageIO.read(new File("data/blue.png"));
+            green = ImageIO.read(Tetris.class.getResource("green.png"));
+            orange = ImageIO.read(Tetris.class.getResource("orange.png"));
+            purple = ImageIO.read(Tetris.class.getResource("purple.png"));
+            red = ImageIO.read(Tetris.class.getResource("red.png"));
+            skyblue = ImageIO.read(Tetris.class.getResource("skyblue.png"));
+            yellow = ImageIO.read(Tetris.class.getResource("yellow.png"));
             background = ImageIO.read(Tetris.class.getResource("background.png"));
             gameOver = ImageIO.read(Tetris.class.getResource("gameover&start.png"));
         } catch (Exception e) {
