@@ -12,25 +12,25 @@ public class Tetris extends JPanel {
     Tetromino nextOne = Tetromino.randomOne();
     Cell[][] wall = new Cell[20][10]; // Wall is used to memorize every cell except those who belongs to currentOne and nextOne.
     final int CELL_SIZE = 26;         // The length of every cell in wall and blocks.
-    public static BufferedImage T;
-    public static BufferedImage O;
-    public static BufferedImage I;
-    public static BufferedImage J;
-    public static BufferedImage L;
-    public static BufferedImage S;
-    public static BufferedImage Z;
+    public static BufferedImage blue;
+    public static BufferedImage orange;
+    public static BufferedImage green;
+    public static BufferedImage purple;
+    public static BufferedImage red;
+    public static BufferedImage skyblue;
+    public static BufferedImage yellow;
     public static BufferedImage background;
     public static BufferedImage gameOver;
 
     static {
         try {
-            T = ImageIO.read(new File("data/blue.png"));
-            I = ImageIO.read(Tetris.class.getResource("green.png"));
-            O = ImageIO.read(Tetris.class.getResource("orange.png"));
-            J = ImageIO.read(Tetris.class.getResource("purple.png"));
-            L = ImageIO.read(Tetris.class.getResource("red.png"));
-            S = ImageIO.read(Tetris.class.getResource("skyblue.png"));
-            Z = ImageIO.read(Tetris.class.getResource("yellow.png"));
+            blue = ImageIO.read(Tetris.class.getResource("blue.png"));
+            green = ImageIO.read(Tetris.class.getResource("green.png"));
+            orange = ImageIO.read(Tetris.class.getResource("orange.png"));
+            purple = ImageIO.read(Tetris.class.getResource("purple.png"));
+            red = ImageIO.read(Tetris.class.getResource("red.png"));
+            skyblue = ImageIO.read(Tetris.class.getResource("skyblue.png"));
+            yellow = ImageIO.read(Tetris.class.getResource("yellow.png"));
             background = ImageIO.read(Tetris.class.getResource("background.png"));
             gameOver = ImageIO.read(Tetris.class.getResource("gameover&start.png"));
         } catch (Exception e) {
@@ -94,7 +94,11 @@ public class Tetris extends JPanel {
                     case KeyEvent.VK_RIGHT:
                         moveRightAction();
                         break;
-                    case KeyEvent.VK_UP:
+                    case KeyEvent.VK_A:
+                        RotateCounter();
+                        break;
+                    case KeyEvent.VK_D:
+                        RotateClockwise();
                         break;
                     default:
                         break;
@@ -114,7 +118,7 @@ public class Tetris extends JPanel {
              * 300毫秒后，会自动执行后续代码
              */
             try {
-                Thread.sleep(300);
+                Thread.sleep(10000);
             } catch (InterruptedException e) {
                 // 抓取打断异常
                 e.printStackTrace();
@@ -152,6 +156,24 @@ public class Tetris extends JPanel {
             currentOne.moveRight();
         }
     }
+    public void RotateClockwise(){
+        currentOne.rotateClockwise();
+        if(outOfBounds()||coincide()){
+            currentOne.rotateCounter();
+        }
+        if(!outOfBounds()&&!coincide()){
+            currentOne.rotateNumber+=1;
+        }
+    }
+    public void RotateCounter(){
+        currentOne.rotateCounter();
+        if(outOfBounds()||coincide()){
+            currentOne.rotateClockwise();
+        }
+        if(!outOfBounds()&&!coincide()){
+            currentOne.rotateNumber-=1;
+        }
+    }
     private boolean coincide() {
         Cell[] cells = currentOne.cells;
         for(Cell c:cells) {
@@ -170,20 +192,6 @@ public class Tetris extends JPanel {
                 return true;
         }
         return false;
-    }
-
-    /*
-     * 使用Down键控制四格方块的下落
-     */
-    public void softDropAction() {
-        if(canDrop()) {
-            currentOne.softDrop();
-        }
-        else {
-            landToWall();
-            currentOne = nextOne;
-            nextOne = Tetromino.randomOne();
-        }
     }
     public boolean canDrop() {
         Cell[] cells = currentOne.cells;
@@ -209,6 +217,20 @@ public class Tetris extends JPanel {
         }
         return true;
     }
+
+    /*
+     * 使用Down键控制四格方块的下落
+     */
+    public void softDropAction() {
+        if(canDrop()) {
+            currentOne.softDrop();
+        }
+        else {
+            landToWall();
+            currentOne = nextOne;
+            nextOne = Tetromino.randomOne();
+        }
+    }
     /*
      * 当不能再下落时，需要将四格方块嵌入到墙中
      * 也就是存储到二维数组中相应的位置上
@@ -226,20 +248,20 @@ public class Tetris extends JPanel {
     public static void main(String[] args) {
         JFrame frame=new JFrame("玩玩俄罗斯方块");
 
-        //创建游戏界面,即画板(面板)
+
         Tetris panel = new Tetris();
-        //将面板嵌入窗口
+
         frame.add(panel);
 
-        //2:设置为可见
+
         frame.setVisible(true);
-        //3:设置窗口的尺寸
+
         frame.setSize(535, 595);
-        //4:设置窗口居中
+
         frame.setLocationRelativeTo(null);
-        //5:设置窗口关闭,即程序中止
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //游戏的主要逻辑封装在start方法中
+
         panel.start();
 
 

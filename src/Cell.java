@@ -36,6 +36,18 @@ public class Cell {
     public void setRow(int row){
         ;this.row = row;
     }
+
+    //Set the col and row of a cell at the same time.
+    public void setColRow(int col,int row){
+        this.col = col;
+        this.row = row;
+    }
+    //This method is for adding or subtracting a number from col and row.
+    public void manipulate(int col,int row){
+        int m = this.col + col;
+        int n = this.row + row;
+        this.setColRow(m,n);
+    }
     public BufferedImage getImage(){
         return image;
     }
