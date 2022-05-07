@@ -24,7 +24,7 @@ public class Tetris extends JPanel {
 
     static {
         try {
-            T = ImageIO.read(new File("data/blue.png"));
+            T = ImageIO.read(Tetris.class.getResource("blue.png"));
             I = ImageIO.read(Tetris.class.getResource("green.png"));
             O = ImageIO.read(Tetris.class.getResource("orange.png"));
             J = ImageIO.read(Tetris.class.getResource("purple.png"));
