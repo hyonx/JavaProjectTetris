@@ -266,8 +266,8 @@ public class Tetris extends JPanel {
         JButton home=new JButton("HOME");
         restart.setVisible(true);
         home.setVisible(true);
-        restart.setBounds(208,260,150,80);
-        home.setBounds(208,380,150,80);
+        restart.setBounds(190,260,150,80);
+        home.setBounds(190,380,150,80);
         this.add(restart);
         this.add(home);
     }
@@ -344,6 +344,7 @@ public class Tetris extends JPanel {
             }
             repaint();
         }
+        repaint();
     }
 
 
