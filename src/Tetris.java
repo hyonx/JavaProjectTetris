@@ -111,7 +111,7 @@ public class Tetris extends JPanel {
         this.requestFocus();
 
 
-        
+
 
             if(canDrop()) {
                 currentOne.softDrop();
