@@ -288,7 +288,11 @@ public class Tetris extends JPanel {
                     case KeyEvent.VK_RIGHT:
                         moveRightAction();
                         break;
-                    case KeyEvent.VK_UP:
+                    case KeyEvent.VK_A:
+                        RotateCounter();
+                        break;
+                    case KeyEvent.VK_D:
+                        RotateClockwise();
                         break;
                     default:
                         break;
