@@ -111,18 +111,7 @@ public class Tetris extends JPanel {
         this.requestFocus();
 
 
-        while(true) {
-            /*
-             * 当程序运行到此，会进入睡眠状态，
-             * 睡眠时间为300毫秒,单位为毫秒
-             * 300毫秒后，会自动执行后续代码
-             */
-            try {
-                Thread.sleep(300);
-            } catch (InterruptedException e) {
-                // 抓取打断异常
-                e.printStackTrace();
-            }
+        
 
             if(canDrop()) {
                 currentOne.softDrop();
