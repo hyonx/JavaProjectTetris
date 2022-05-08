@@ -129,7 +129,7 @@ public class Tetris extends JPanel {
              */
             repaint();
         }
-    }
+    
     public void moveRightAction() {
         currentOne.moveRight();
         if(outOfBounds()||coincide())
