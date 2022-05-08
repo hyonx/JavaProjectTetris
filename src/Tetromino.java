@@ -69,7 +69,7 @@ public class Tetromino {
         switch (i){
             case 0:t=Tetris.blue;break;
             case 1:t=Tetris.orange;break;
-            case 2:t=Tetris.green;break;
+            case 2:t=Tetris.orange;break;
             case 3:t=Tetris.purple;break;
             case 4:t=Tetris.red;break;
             case 5:t=Tetris.skyblue;break;

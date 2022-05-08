@@ -3,7 +3,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -16,25 +15,25 @@ public class Tetris extends JPanel {
 
 
     // The length of every cell in wall and blocks.
-    public static BufferedImage T;
-    public static BufferedImage O;
-    public static BufferedImage I;
-    public static BufferedImage J;
-    public static BufferedImage L;
-    public static BufferedImage S;
-    public static BufferedImage Z;
+    public static BufferedImage blue;
+    public static BufferedImage orange;
+    public static BufferedImage green;
+    public static BufferedImage purple;
+    public static BufferedImage red;
+    public static BufferedImage skyblue;
+    public static BufferedImage yellow;
     public static BufferedImage background;
     public static BufferedImage gameOver;
 
     static {
         try {
-            T = ImageIO.read(Tetris.class.getResource("blue.png"));
-            I = ImageIO.read(Tetris.class.getResource("green.png"));
-            O = ImageIO.read(Tetris.class.getResource("orange.png"));
-            J = ImageIO.read(Tetris.class.getResource("purple.png"));
-            L = ImageIO.read(Tetris.class.getResource("red.png"));
-            S = ImageIO.read(Tetris.class.getResource("skyblue.png"));
-            Z = ImageIO.read(Tetris.class.getResource("yellow.png"));
+            blue = ImageIO.read(Tetris.class.getResource("blue.png"));
+            green = ImageIO.read(Tetris.class.getResource("green.png"));
+            orange = ImageIO.read(Tetris.class.getResource("orange.png"));
+            purple = ImageIO.read(Tetris.class.getResource("purple.png"));
+            red = ImageIO.read(Tetris.class.getResource("red.png"));
+            skyblue = ImageIO.read(Tetris.class.getResource("skyblue.png"));
+            yellow = ImageIO.read(Tetris.class.getResource("yellow.png"));
             background = ImageIO.read(Tetris.class.getResource("background.png"));
             gameOver = ImageIO.read(Tetris.class.getResource("a.png"));
         } catch (Exception e) {
@@ -341,136 +340,47 @@ public class Tetris extends JPanel {
             }
             repaint();
         }
-<<<<<<< HEAD
-    
-    public void moveRightAction() {
-        currentOne.moveRight();
-        if(outOfBounds()||coincide())
-            currentOne.moveLeft();
     }
 
-    /*
-     * 使用Left键控制四格方块左移
-     */
-    public void moveLeftAction() {
-        currentOne.moveLeft();
-        if(outOfBounds()||coincide()) {
-            currentOne.moveRight();
-        }
-    }
-    public void RotateClockwise(){
-        currentOne.rotateClockwise();
-        if(outOfBounds()||coincide()){
-            currentOne.rotateCounter();
-        }
-        if(!outOfBounds()&&!coincide()){
-            currentOne.rotateNumber+=1;
-        }
-    }
-    public void RotateCounter(){
-        currentOne.rotateCounter();
-        if(outOfBounds()||coincide()){
+
+        public void RotateClockwise () {
             currentOne.rotateClockwise();
-        }
-        if(!outOfBounds()&&!coincide()){
-            currentOne.rotateNumber-=1;
-        }
-    }
-    private boolean coincide() {
-        Cell[] cells = currentOne.cells;
-        for(Cell c:cells) {
-            int row = c.getRow();
-            int col = c.getCol();
-            if(wall[row][col]!=null)
-                return true;
-        }
-        return false;
-    }
-    public boolean outOfBounds() {
-        Cell[] cells = currentOne.cells;
-        for(Cell c:cells) {
-            int col = c.getCol();
-            if(col<0||col>9)
-                return true;
-        }
-        return false;
-    }
-    public boolean canDrop() {
-        Cell[] cells = currentOne.cells;
-        /*
-         *
-         */
-        for(Cell c:cells) {
-            /* 获取每个元素的行号,列号
-             * 判断：
-             * 只要有一个元素的下一行上有方块
-             * 或者只要有一个元素到达最后一行
-             * 就不能再下落了
-             */
-            int row = c.getRow();
-            int col = c.getCol();
-            if (row==19) {//判断是否到达底部
-                return false;
+            if (outOfBounds() || coincide()) {
+                currentOne.rotateCounter();
             }
-            else if(wall[row+1][col]!=null) {//判断下方是否有方块
-                return false;
+            if (!outOfBounds() && !coincide()) {
+                currentOne.rotateNumber += 1;
             }
-
         }
-        return true;
-    }
-
-    /*
-     * 使用Down键控制四格方块的下落
-     */
-    public void softDropAction() {
-        if(canDrop()) {
-            currentOne.softDrop();
+        public void RotateCounter () {
+            currentOne.rotateCounter();
+            if (outOfBounds() || coincide()) {
+                currentOne.rotateClockwise();
+            }
+            if (!outOfBounds() && !coincide()) {
+                currentOne.rotateNumber -= 1;
+            }
         }
-        else {
-            landToWall();
-            currentOne = nextOne;
-            nextOne = Tetromino.randomOne();
+        public static void main (String[]args){
+            JFrame frame = new JFrame("玩玩俄罗斯方块");
+
+
+            Tetris panel = new Tetris();
+
+            frame.add(panel);
+
+
+            frame.setVisible(true);
+
+            frame.setSize(535, 595);
+
+            frame.setLocationRelativeTo(null);
+
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+            panel.start();
         }
     }
-    /*
-     * 当不能再下落时，需要将四格方块嵌入到墙中
-     * 也就是存储到二维数组中相应的位置上
-     */
-    public void landToWall() {
-        Cell[] cells = currentOne.cells;
-        for(Cell c:cells) {
-            //获取最终的行号和列号
-            int row = c.getRow();
-            int col = c.getCol();
-            wall[row][col] = c;
-        }
-    }
-
-    public static void main(String[] args) {
-        JFrame frame=new JFrame("玩玩俄罗斯方块");
-
-
-        Tetris panel = new Tetris();
-
-        frame.add(panel);
-
-
-        frame.setVisible(true);
-
-        frame.setSize(535, 595);
-
-        frame.setLocationRelativeTo(null);
-
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        panel.start();
-
-=======
->>>>>>> 675caf62305b39d6d6595c1cff1b3debb83cde32
-
-    }
-}
 
 
 
