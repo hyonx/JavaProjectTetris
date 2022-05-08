@@ -118,7 +118,7 @@ public class Tetris extends JPanel {
              * 300毫秒后，会自动执行后续代码
              */
             try {
-                Thread.sleep(10000);
+                Thread.sleep(300);
             } catch (InterruptedException e) {
                 // 抓取打断异常
                 e.printStackTrace();

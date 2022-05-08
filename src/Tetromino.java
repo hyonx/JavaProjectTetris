@@ -59,7 +59,7 @@ public class Tetromino {
             case 6:t=new Z();break;
         }
         Tetromino s = new T();
-        return s;
+        return t;
     }
 
     //This is for generating random colors with certain pictures.It has the return value of BufferedImage.
