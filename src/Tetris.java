@@ -102,7 +102,9 @@ public class Tetris extends JPanel {
     /*定义一个属性，存储游戏的当前状态*/
     private int game_state;
 
+
     String[] show_state = {"P[pause]", "C[continue]", "S[replay]"};
+
 
     public void paintState(Graphics g) {
         if (game_state == GAMEOVER) {
