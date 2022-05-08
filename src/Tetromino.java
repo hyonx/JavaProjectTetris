@@ -32,10 +32,10 @@ public class Tetromino {
     //rotate counterclockwise
     public void rotateCounter(){
         State s = this.states[(rotateNumber%4+3)%4];
-        cells[0].manipulate(s.getCol0(),s.getRow0());
-        cells[1].manipulate(s.getCol1(),s.getRow1());
-        cells[2].manipulate(s.getCol2(),s.getRow2());
-        cells[3].manipulate(s.getCol3(),s.getRow3());
+        cells[0].manipulate(-s.getCol0(),-s.getRow0());
+        cells[1].manipulate(-s.getCol1(),-s.getRow1());
+        cells[2].manipulate(-s.getCol2(),-s.getRow2());
+        cells[3].manipulate(-s.getCol3(),-s.getRow3());
     }
 
     //drop
@@ -58,7 +58,7 @@ public class Tetromino {
             case 5:t=new S();break;
             case 6:t=new Z();break;
         }
-        Tetromino s = new T();
+        Tetromino L = new T();
         return t;
     }
 
@@ -69,7 +69,7 @@ public class Tetromino {
         switch (i){
             case 0:t=Tetris.blue;break;
             case 1:t=Tetris.orange;break;
-            case 2:t=Tetris.green;break;
+            case 2:t=Tetris.orange;break;
             case 3:t=Tetris.purple;break;
             case 4:t=Tetris.red;break;
             case 5:t=Tetris.skyblue;break;
@@ -78,8 +78,7 @@ public class Tetromino {
         return t;
     }
 
-    //Rotate the block, which needs to be rewrite in specific block class
-    public void rotate(){}
+
 
 }
 class T extends Tetromino{
@@ -87,10 +86,10 @@ class T extends Tetromino{
             rotateNumber = 10000;
             states = new State[4];
             BufferedImage t = randomColor();
-            cells[0] = new Cell(4,5,t);
-            cells[1] = new Cell(3,5,t);
-            cells[2] = new Cell(5,5,t);
-            cells[3] = new Cell(4,6,t);
+            cells[0] = new Cell(4,0,t);
+            cells[1] = new Cell(3,0,t);
+            cells[2] = new Cell(5,0,t);
+            cells[3] = new Cell(4,1,t);
             states[0]= new State(0,0,1,-1,-1,1,-1,-1);
             states[1]= new State(0,0,1,1,-1,-1,1,-1);
             states[2]= new State(0,0,-1,1,1,-1,1,1);
@@ -151,10 +150,10 @@ class I extends Tetromino {
                 cells[1] = new Cell(3, 0, t);
                 cells[2] = new Cell(5, 0, t);
                 cells[3] = new Cell(3, 1, t);
-                states[0]= new State(0,0,1,-1,-1,1,-2,0);
-                states[1]= new State(0,0,1,1,-1,-1,0,-2);
-                states[2]= new State(0,0,-1,1,1,-1,2,0);
-                states[3]= new State(0,0,-1,-1,1,1,0,2);
+                states[0]= new State(0,0,1,-1,-1,1,0,-2);
+                states[1]= new State(0,0,1,1,-1,-1,2,0);
+                states[2]= new State(0,0,-1,1,1,-1,0,2);
+                states[3]= new State(0,0,-1,-1,1,1,-2,0);
             }
         }
         class S extends Tetromino {
@@ -166,7 +165,7 @@ class I extends Tetromino {
                 cells[1] = new Cell(5, 0, t);
                 cells[2] = new Cell(3, 1, t);
                 cells[3] = new Cell(4, 1, t);
-                states[0]= new State(0,0,-1,1,-1,-1,0,-2);
+                states[0]= new State(0,0,-1,1,0,-2,-1,-1);
                 states[1]= new State(0,0,-1,-1,2,0,1,-1);
                 states[2]= new State(0,0,1,-1,0,2,1,1);
                 states[3]= new State(0,0,1,1,-2,0,-1,1);
