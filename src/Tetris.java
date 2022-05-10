@@ -1,8 +1,8 @@
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
+import java.text.AttributedCharacterIterator;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -109,14 +109,14 @@ public class Tetris extends JPanel {
         if (game_state == GAMEOVER) {
             g.drawImage(gameOver, -15, -15, null);
             addButton();
-
         } else if (game_state == PLAYING) {
-
+            g.setFont(new Font(Font.SANS_SERIF, Font.ITALIC, 30));
+            g.drawString("PLAYING", 285, 275);
         } else if (game_state == PAUSE) {
-
+            g.setFont(new Font(Font.SANS_SERIF, Font.ITALIC, 30));
+            g.drawString("PAUSE" , 285, 275);
         }
     }
-
 
     private boolean coincide() {
         Cell[] cells = currentOne.cells;
@@ -180,9 +180,9 @@ public class Tetris extends JPanel {
         return true;
     }
 
-    /*
-     * 使用Down键控制四格方块的下落
-     */
+
+     //使用Down键控制四格方块的下落
+
     public void softDropAction() {
         if (canDrop()) {
             currentOne.softDrop();
@@ -195,6 +195,25 @@ public class Tetris extends JPanel {
             } else {
                 game_state = GAMEOVER;
             }
+        }
+    }
+
+
+    // manually control the drop action of currentOne.
+    public void handDropAction(){
+        while(true){
+            if(canDrop()){
+            currentOne.softDrop();
+            }
+            else break;
+        }                     // This while loop aims at quickly letting the currentOne drop down.
+        landToWall();
+        destroyLine();
+        if (!isGameOver()) {
+            currentOne = nextOne;
+            nextOne = Tetromino.randomOne();
+        } else {
+            game_state = GAMEOVER;
         }
     }
 
@@ -266,10 +285,29 @@ public class Tetris extends JPanel {
         JButton home=new JButton("HOME");
         restart.setVisible(true);
         home.setVisible(true);
+
         restart.setBounds(208,260,150,80);
         home.setBounds(208,380,150,80);
+
         this.add(restart);
         this.add(home);
+
+        restart.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Restart(restart, home);
+            }
+        });
+    }
+    public void Restart(JButton b1, JButton b2){
+        game_state=PLAYING;
+        b1.removeAll();
+        b2.removeAll();
+        b1.setVisible(false);
+        b2.setVisible(false);
+         currentOne = Tetromino.randomOne();
+         nextOne = Tetromino.randomOne();
+         wall = new Cell[20][10];
     }
 
     public void start() {
@@ -294,6 +332,14 @@ public class Tetris extends JPanel {
                     case KeyEvent.VK_D:
                         RotateClockwise();
                         break;
+                    case KeyEvent.VK_W:
+                        handDropAction();
+                        break;
+                    case KeyEvent.VK_P:
+                        game_state=PAUSE;
+                        break;
+                    case KeyEvent.VK_S:
+                        game_state=PLAYING;
                     default:
                         break;
                 }
@@ -384,10 +430,8 @@ public class Tetris extends JPanel {
 
             panel.start();
         }
-    }
 
-
-
+}
 
 
 
