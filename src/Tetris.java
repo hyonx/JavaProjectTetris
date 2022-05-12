@@ -321,9 +321,10 @@ public class Tetris extends JPanel implements Runnable {//This is the main class
         repaint();
         Start();
     }
- //速度池。
-    private static int Speed;
-    private static int[] difficulty = {200, 300, 400, 500, 600};
+  //速度池。
+    private static int Speed=400;
+    private static int j = 1;
+    int[] difficulty = {150, 400, 800};
     
     // the startInitiation method contains the initiation of keyListener and focus.
     public void startInitiation() {
@@ -357,16 +358,14 @@ public class Tetris extends JPanel implements Runnable {//This is the main class
                     case KeyEvent.VK_S:
                         game_state=PLAYING;
                         break;
-                    case KeyEvent.VK_Q: {
-                        int i = 2;
-                        i++;
-                        if (i < 5)
-                            Speed = difficulty[i];
-                    } break;
-                    case KeyEvent.VK_E: {
-                        int j = 2;
+                     case KeyEvent.VK_Q: {
                         j--;
                         if (j >= 0)
+                            Speed = difficulty[j];
+                    } break;
+                    case KeyEvent.VK_E: {
+                        j++;
+                        if (j < 3)
                             Speed = difficulty[j];
                     } break;
                     default:
@@ -388,7 +387,7 @@ public class Tetris extends JPanel implements Runnable {//This is the main class
                      * 400毫秒后，会自动执行后续代码
                      */
                     try {
-                        Thread.sleep(400);
+                        Thread.sleep(Speed);
 
                     } catch (InterruptedException e) {
                         e.printStackTrace();
