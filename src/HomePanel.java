@@ -1,9 +1,6 @@
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.image.BufferedImage;
-import javax.imageio.ImageIO;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 public class HomePanel extends JPanel {
     JButton start;
     JButton settings;
@@ -12,11 +9,11 @@ public class HomePanel extends JPanel {
         start = new JButton("start");
         settings = new JButton("settings");
         quit = new JButton("quit");
-        start.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                
-            }
-        });
+        this.add(start);
+        this.add(settings);
+        this.add(quit);
+        start.setVisible(true);
+        settings.setVisible(true);
+        quit.setVisible(true);
     }
 }

@@ -4,8 +4,14 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-public class Tetris extends JPanel {
-    //This is the main class, which contains the main method, and other major methods.
+public class Tetris extends JPanel implements Runnable {//This is the main class, which contains the main method, and other major methods.
+
+    @Override
+    public void run() {
+        this.startInitiation();
+        this.Start();
+    }
+
     Tetromino currentOne = Tetromino.randomOne();
     Tetromino nextOne = Tetromino.randomOne();
     Cell[][] wall = new Cell[20][10]; // Wall is used to memorize every cell except those who belongs to currentOne and nextOne.
@@ -100,8 +106,14 @@ public class Tetris extends JPanel {
     public static final int HOME = 3;
     public static final int QUIT = 4;
     /*定义一个属性，存储游戏的当前状态*/
-    private int game_state;
-    private int whether_restart;
+    private static int game_state = HOME;
+    private int whether_restart = PLAYING;
+    public static void setGame_state(int x){
+        game_state = x;
+    }
+    public static int getGame_state(){
+        return game_state;
+    }
 
     String[] show_state = {"P[pause]", "C[continue]", "S[replay]"};
 
@@ -307,7 +319,7 @@ public class Tetris extends JPanel {
         this.remove(b1); this.remove(b2);
         this.revalidate();
         repaint();
-        start();
+        Start();
     }
 
     // the startInitiation method contains the initiation of keyListener and focus.
@@ -351,20 +363,17 @@ public class Tetris extends JPanel {
         this.requestFocus();
     }
         //The start method includes the  main logic of this game.
-        public void start(){
+        public void Start(){
             while (true) {
-                if(whether_restart==RESTART){
-                    wall = new Cell[20][10];
-                    whether_restart = PLAYING;
-                }
                 if (game_state == PLAYING) {
                     /*
                      * 当程序运行到此，会进入睡眠状态，
                      * 睡眠时间为300毫秒,单位为毫秒
-                     * 300毫秒后，会自动执行后续代码
+                     * 400毫秒后，会自动执行后续代码
                      */
                     try {
                         Thread.sleep(400);
+
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -384,7 +393,7 @@ public class Tetris extends JPanel {
                         }
                     }
                 }
-                repaint();
+                        repaint();
             }
         }
 
@@ -409,25 +418,39 @@ public class Tetris extends JPanel {
         }
         public static void main (String[]args){
             JFrame frame = new JFrame("玩玩俄罗斯方块");
-
-            Tetris panel = new Tetris();
-            frame.add(panel);
-            panel.setVisible(false);
-            HomePanel panel1 = new HomePanel();
-            frame.add(panel1);
-            panel1.setVisible(true);
-
-            frame.setVisible(true);
+            Tetris gamePanel = new Tetris();
+            HomePanel homePanel = new HomePanel();
+            //设置一个窗口的总面板
+            JPanel mainPanel = new JPanel();
+            //创建一个卡片布局器的对象
+            CardLayout cardLayout = new CardLayout();
+            //将主面板的布局器设置为卡片布局器
+            mainPanel.setLayout(cardLayout);
+            //该卡片布局器中只有home面板和游戏面板
+            mainPanel.add(homePanel);
+            mainPanel.add(gamePanel);
+            frame.setContentPane(mainPanel);
             frame.setSize(535, 595);
             frame.setLocationRelativeTo(null);
+            frame.setVisible(true);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+            //when game_state is "HOME", we need to display the homePanel;
+            //when game_state is "PLAYING", we need to display the gamePanel and start the game;
 
-            panel.startInitiation();
-            panel.start();
+            homePanel.start.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    game_state=PLAYING;
+                    cardLayout.last(mainPanel);
+                    new Thread(gamePanel).start();
+                }
+            });
         }
+    }
 
-}
+
+
 
 
 
