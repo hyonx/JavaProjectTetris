@@ -1,28 +1,41 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-public class Tetris extends JPanel implements Runnable {//This is the main class, which contains the main method, and other major methods.
+public class Tetris extends JPanel implements Runnable {
+    //This is the main class, which contains the main method, and other major methods.
 
     @Override
     public void run() {
-        Speed=400;j=1;
-        this.setGameState(0);
-        this.wall = new Cell[20][10];
-        this.currentOne = Tetromino.randomOne();
-        this.nextOne = Tetromino.randomOne();
-        this.totalScore = 0;
-        this.totalLine = 0;
-        this.startInitiation();
+            Speed = 400;
+            j = 1;
+            this.setGameState(0);
+            this.wall = new Cell[20][10];
+            this.currentOne = Tetromino.randomOne();
+            this.nextOne = Tetromino.randomOne();
+            totalScore = 0;
+            totalLine = 0;
+        //this.startInitiation();
+        if(exit){
+            this.startInitiation();
+        }
+        this.requestFocus();
         this.Start();
     }
 
     Tetromino currentOne = Tetromino.randomOne();
     Tetromino nextOne = Tetromino.randomOne();
-    Cell[][] wall = new Cell[20][10]; // Wall is used to memorize every cell except those who belongs to currentOne and nextOne.
+    Cell[][] wall = new Cell[20][10];
+    // Wall is used to memorize every cell except those who belongs to currentOne and nextOne.
     final int CELL_SIZE = 26;
+
+ /////////////////////////////////////////////////
+    static boolean exit=true;
+
 
 
     // The length of every cell in wall and blocks.
@@ -105,6 +118,13 @@ public class Tetris extends JPanel implements Runnable {//This is the main class
         g.drawString("LINES:" + totalLine, 285, 215);
     }
 
+    public static int getTotalLine() {
+        return totalLine;
+    }
+    public static int getTotalScore(){
+        return totalScore;
+    }
+
     /*定义三个常量：充当游戏的状态*/
     public static final int PLAYING = 0;
     public static final int PAUSE = 1;
@@ -130,9 +150,7 @@ public class Tetris extends JPanel implements Runnable {//This is the main class
     public void paintState(Graphics g) {
       /*  if (game_state == GAMEOVER) {
             g.drawImage(gameOver, -15, -15, null);
-
             //  addButton();
-
         }  */
         if (game_state == PLAYING) {
 
@@ -303,41 +321,32 @@ public class Tetris extends JPanel implements Runnable {//This is the main class
         }
     }
 
-  /* public void addButton(){
-        super.setLayout(null);
-        JButton restart=new JButton("RESTART");
-        JButton home=new JButton("HOME");
-        restart.setVisible(true);
-        home.setVisible(true);
+    /* public void addButton(){
+          super.setLayout(null);
+          JButton restart=new JButton("RESTART");
+          JButton home=new JButton("HOME");
+          restart.setVisible(true);
+          home.setVisible(true);
+          restart.setBounds(208,260,150,80);
+          home.setBounds(208,380,150,80);
+          this.add(restart);
+          this.add(home);
+          restart.addActionListener(new ActionListener() {
+              @Override
+              public void actionPerformed(ActionEvent e) {
+                  Restart(restart, home);
+              }
+          });
+      }
+     */
+    static JButton pause;
 
-        restart.setBounds(208,260,150,80);
-        home.setBounds(208,380,150,80);
+    public Tetris() throws FileNotFoundException {
 
-        this.add(restart);
-        this.add(home);
-
-        restart.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Restart(restart, home);
-            }
-        });
+        pause=new JButton("PAUSE");
+        this.add(pause);
+        this.setVisible(true);
     }
-   */
-  static JButton pause;
-
-       public Tetris(){
-
-          pause=new JButton("PAUSE");
-          this.add(pause);
-          this.setVisible(true);
-   }
-
-
-
-
-
-
 
     public void Restart(JButton b1, JButton b2) {
         game_state = PLAYING;
@@ -414,9 +423,91 @@ public class Tetris extends JPanel implements Runnable {//This is the main class
         this.requestFocus();
     }
 
+    public void listener(){ KeyListener listener1 = new KeyAdapter() {
+        @Override
+        public void keyPressed(KeyEvent e) {
+            super.keyPressed(e);
+            int code = e.getKeyCode();
+            switch (code) {
+                case KeyEvent.VK_DOWN:
+                    softDropAction();
+                    break;
+                case KeyEvent.VK_LEFT:
+                    moveLeftAction();
+                    break;
+                case KeyEvent.VK_RIGHT:
+                    moveRightAction();
+                    break;
+                case KeyEvent.VK_A:
+                    RotateCounter();
+                    break;
+                case KeyEvent.VK_D:
+                    RotateClockwise();
+                    break;
+                case KeyEvent.VK_W:
+                    handDropAction();
+                    break;
+                case KeyEvent.VK_P:
+                    game_state = PAUSE;
+                    break;
+                case KeyEvent.VK_S:
+                    game_state = PLAYING;
+                    break;
+                case KeyEvent.VK_Q: {
+                    j--;
+                    if (j >= 0)
+                        Speed = difficulty[j];
+                    else{
+                        j=0;
+                    }
+                }
+                break;
+                case KeyEvent.VK_E: {
+                    j++;
+                    if (j < 3)
+                        Speed = difficulty[j];
+                    else{
+                        j=2;
+                    }
+                }
+                break;
+                default:
+                    break;
+            }
+            repaint();
+        }
+    };
+        this.addKeyListener(listener1);
+        this.requestFocus();
+
+    }
+ //   PrintWriter printWriter=new PrintWriter("records.txt");
+
+
     //The start method includes the  main logic of this game.
     public void Start() {
+        //if (exit) {
+
+       // }
+        /*
+        else{
+            KeyListener listener2 = new KeyAdapter() {
+                @Override
+                public void keyPressed(KeyEvent e) {
+                    super.keyPressed(e);
+
+                }
+
+            };
+            this.addKeyListener(listener2);
+        }
+
+        this.requestFocus();
+
+
+         */
         while (true) {
+
             if (game_state == PLAYING) {
                 /*
                  * 当程序运行到此，会进入睡眠状态，
@@ -449,6 +540,8 @@ public class Tetris extends JPanel implements Runnable {//This is the main class
         }
         //  if(game_state==GAMEOVER)
         //this.setVisible(false);
+
+
     }
 
     public int showGameState() {
@@ -484,18 +577,12 @@ public class Tetris extends JPanel implements Runnable {//This is the main class
     //有问题！！！！！！！！！！！！！
     public void Initiation() {
         System.out.println("qqqqqqq");
-            this.wall = new Cell[20][10];
-            this.currentOne = Tetromino.randomOne();
-            this.nextOne = Tetromino.randomOne();
-            this.totalScore = 0;
-            this.totalLine = 0;
-        }
-
-
+        this.wall = new Cell[20][10];
+        this.currentOne = Tetromino.randomOne();
+        this.nextOne = Tetromino.randomOne();
+        this.totalScore = 0;
+        this.totalLine = 0;
     }
 
 
-
-
-
-
+}
