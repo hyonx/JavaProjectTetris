@@ -60,6 +60,7 @@ public class MainFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
              //   Tetris.exit=true;
+                Tetris.isExit=true;
                 gamePanel.setGameState(0);
                 cardLayout.next(mainPanel);
 
@@ -72,6 +73,7 @@ public class MainFrame {
         gameOverPanel.restart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Tetris.isExit=true;
                 gamePanel.setGameState(0);
                 cardLayout.first(mainPanel);
                 cardLayout.next(mainPanel);
@@ -111,6 +113,7 @@ public class MainFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Tetris.exit= false;
+                Tetris.isExit=true;
                 gamePanel.setGameState(0);
                 cardLayout.previous(mainPanel);
                // Tetris.startInitiation();
@@ -131,12 +134,28 @@ public class MainFrame {
                     ex.printStackTrace();
                 }
 
+                if(Tetris.getTotalScore() == Integer.parseInt(null))
+                    System.out.print("ai");
                 System.out.print(Tetris.getTotalScore());
                 printWriter.print(Tetris.getTotalLine());
                 printWriter.print(Tetris.getTotalScore());
                 System.out.println("save");
             }
         });
+
+        pausePanel.Continue.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Tetris.exit= false;
+                Tetris.isExit=false;
+                gamePanel.setGameState(0);
+                cardLayout.previous(mainPanel);
+                // Tetris.startInitiation();
+                //a.start();
+                new Thread(gamePanel).start();
+            }
+        });
+
 
         Tetris.pause.addActionListener(new ActionListener() {
             @Override
@@ -158,7 +177,7 @@ public class MainFrame {
                     break;
                 }
             }
-            System.out.print("qqqqq");
+          //  System.out.print("qqqqq");
             Tetris.exit= false;
 
             cardLayout.last(mainPanel);
@@ -167,6 +186,4 @@ public class MainFrame {
 
         }
     }
-
-
     }
