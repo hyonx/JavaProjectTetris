@@ -11,6 +11,7 @@ public class Tetris extends JPanel implements Runnable {
 
     @Override
     public void run() {
+        if(isExit){
             Speed = 400;
             j = 1;
             this.setGameState(0);
@@ -19,6 +20,7 @@ public class Tetris extends JPanel implements Runnable {
             this.nextOne = Tetromino.randomOne();
             totalScore = 0;
             totalLine = 0;
+        }
         //this.startInitiation();
         if(exit){
             this.startInitiation();
@@ -35,7 +37,7 @@ public class Tetris extends JPanel implements Runnable {
 
  /////////////////////////////////////////////////
     static boolean exit=true;
-
+    static boolean isExit=true;
 
 
     // The length of every cell in wall and blocks.
