@@ -1,4 +1,4 @@
-com.sun.applet2.Applet2;
+import com.sun.applet2.Applet2;
 
 import javax.swing.*;
 import java.awt.*;
@@ -59,8 +59,7 @@ public class MainFrame {
         homePanel.start.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                Tetris.exit=true;
+             //   Tetris.exit=true;
                 gamePanel.setGameState(0);
                 cardLayout.next(mainPanel);
 
@@ -92,7 +91,7 @@ public class MainFrame {
                 gamePanel.setGameState(3);
                 cardLayout.first(mainPanel);
                 //也许不需要
-                new Thread(gamePanel).start();
+              //  new Thread(gamePanel).start();
               //  a.start();
             }
         });
@@ -100,9 +99,10 @@ public class MainFrame {
         pausePanel.homeAgain.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Tetris.exit= false;
                 gamePanel.setGameState(3);
                 cardLayout.first(mainPanel);
-               new Thread(gamePanel).start();
+              // new Thread(gamePanel).start();
                // a.start();
             }
         });
@@ -110,6 +110,7 @@ public class MainFrame {
         pausePanel.startAgain.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Tetris.exit= false;
                 gamePanel.setGameState(0);
                 cardLayout.previous(mainPanel);
                // Tetris.startInitiation();
@@ -140,10 +141,11 @@ public class MainFrame {
         Tetris.pause.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Tetris.exit= false;
                 gamePanel.setGameState(1);
                 cardLayout.next(mainPanel);
                // a.start();
-                new Thread(gamePanel).start();
+              //  new Thread(gamePanel).start();
             }
         });
 
