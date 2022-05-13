@@ -125,6 +125,8 @@ public class Tetris extends JPanel implements Runnable {
         return totalScore;
     }
 
+    //////////////////////////////////////////////////////////////////
+
     /*定义三个常量：充当游戏的状态*/
     public static final int PLAYING = 0;
     public static final int PAUSE = 1;
@@ -507,6 +509,8 @@ public class Tetris extends JPanel implements Runnable {
 
          */
         while (true) {
+            if(game_state==PAUSE)
+                break;
 
             if (game_state == PLAYING) {
                 /*
@@ -586,3 +590,5 @@ public class Tetris extends JPanel implements Runnable {
 
 
 }
+
+
