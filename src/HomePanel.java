@@ -9,10 +9,13 @@ public class HomePanel extends JPanel {
     JButton rule;
     public HomePanel(){
         this.setLayout(null);
-        start = new JButton("START");
-        load = new JButton("LOAD");
-        rule = new JButton("RULE");
-        
+        start = new JButton("start");
+        load = new JButton("load");
+        rule = new JButton("Rule");
+
+        start.setBounds(150,200,200,80);
+        load.setBounds(150,300,200,80);
+        rule.setBounds(150,400,200,80);
         this.add(start);
         this.add(load);
         this.add(rule);
