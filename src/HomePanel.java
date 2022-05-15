@@ -6,21 +6,19 @@ import java.awt.event.ActionListener;
 public class HomePanel extends JPanel {
     JButton start;
     JButton load;
-    JButton quit;
+    JButton rule;
     public HomePanel(){
-     //   Container a=new Container();
-        start = new JButton("start");
-        load = new JButton("load");
-        quit = new JButton("quit");
-    //    a.add(start);
-
-      //  start.setBounds(200,200,40,40);
+        this.setLayout(null);
+        start = new JButton("START");
+        load = new JButton("LOAD");
+        rule = new JButton("RULE");
+        
         this.add(start);
         this.add(load);
-        this.add(quit);
+        this.add(rule);
         start.setVisible(true);
         load.setVisible(true);
-        quit.setVisible(true);
+        rule.setVisible(true);
     }
 }
 
