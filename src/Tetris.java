@@ -40,7 +40,7 @@ public class Tetris extends JPanel implements Runnable {
     // Wall is used to memorize every cell except those who belongs to currentOne and nextOne.
     final int CELL_SIZE = 26;
 
-    /////////////////////////////////////////////////
+
     static boolean exit = true;
     static boolean isExit = true;
     static boolean initiatLoad = true;
@@ -81,6 +81,8 @@ public class Tetris extends JPanel implements Runnable {
         paintNextOne(g);
         paintScore(g);
         paintState(g);
+        g.translate(-15, -15);
+        super.paintChildren(g);
     }
 
     public void paintWall(Graphics a) {
@@ -140,7 +142,6 @@ public class Tetris extends JPanel implements Runnable {
     public static void setTotalScore(int score) {
         totalScore = score;
     }
-    //////////////////////////////////////////////////////////////////
 
     /*定义三个常量：充当游戏的状态*/
     public static final int PLAYING = 0;
@@ -348,31 +349,13 @@ public class Tetris extends JPanel implements Runnable {
         }
     }
 
-
-    /* public void addButton(){
-          super.setLayout(null);
-          JButton restart=new JButton("RESTART");
-          JButton home=new JButton("HOME");
-          restart.setVisible(true);
-          home.setVisible(true);
-          restart.setBounds(208,260,150,80);
-          home.setBounds(208,380,150,80);
-          this.add(restart);
-          this.add(home);
-          restart.addActionListener(new ActionListener() {
-              @Override
-              public void actionPerformed(ActionEvent e) {
-                  Restart(restart, home);
-              }
-          });
-      }
-     */
-    static JButton pause;
+      static JButton pause;
 
     public Tetris() throws FileNotFoundException {
-
+        this.setLayout(null);
         pause = new JButton("PAUSE");
         this.add(pause);
+        pause.setBounds(285,315,250,70);
         this.setVisible(true);
     }
 
@@ -446,65 +429,7 @@ public class Tetris extends JPanel implements Runnable {
         this.requestFocus();
     }
 
-    public void listener() {
-        KeyListener listener1 = new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                super.keyPressed(e);
-                int code = e.getKeyCode();
-                switch (code) {
-                    case KeyEvent.VK_DOWN:
-                        softDropAction();
-                        break;
-                    case KeyEvent.VK_LEFT:
-                        moveLeftAction();
-                        break;
-                    case KeyEvent.VK_RIGHT:
-                        moveRightAction();
-                        break;
-                    case KeyEvent.VK_A:
-                        RotateCounter();
-                        break;
-                    case KeyEvent.VK_D:
-                        RotateClockwise();
-                        break;
-                    case KeyEvent.VK_W:
-                        handDropAction();
-                        break;
-                    case KeyEvent.VK_P:
-                        game_state = PAUSE;
-                        break;
-                    case KeyEvent.VK_S:
-                        game_state = PLAYING;
-                        break;
-                    case KeyEvent.VK_Q: {
-                        j--;
-                        if (j >= 0)
-                            Speed = difficulty[j];
-                        else {
-                            j = 0;
-                        }
-                    }
-                    break;
-                    case KeyEvent.VK_E: {
-                        j++;
-                        if (j < 3)
-                            Speed = difficulty[j];
-                        else {
-                            j = 2;
-                        }
-                    }
-                    break;
-                    default:
-                        break;
-                }
-                repaint();
-            }
-        };
-        this.addKeyListener(listener1);
-        this.requestFocus();
-    }
-
+   
     //The start method includes the  main logic of this game.
     public void Start() throws FileNotFoundException {
         while (true) {
