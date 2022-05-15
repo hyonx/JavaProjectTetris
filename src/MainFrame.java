@@ -60,6 +60,7 @@ public class MainFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
              //   Tetris.exit=true;
+                Tetris.initiatLoad=true;
                 Tetris.isExit=true;
                 gamePanel.setGameState(0);
                 cardLayout.next(mainPanel);
@@ -69,11 +70,44 @@ public class MainFrame {
 
             }
         });
+        File record=new File("records.txt");
+
+        homePanel.load.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                Tetris.isExit = true;
+
+                java.util.Scanner input = null;
+                try {
+                    input = new java.util.Scanner(record);
+                } catch (FileNotFoundException ex) {
+                    ex.printStackTrace();
+                }
+                Tetris.initiatLoad=false;
+                gamePanel.setGameState(0);
+
+                //    String read=input.next();
+                //   String[] Read=read.split("");
+                //  int line=Integer.parseInt(Read[0]);
+                //  int score=Integer.parseInt(Read[1]);
+                Tetris.setTotalLine(input.nextInt());
+                 Tetris.setTotalScore(input.nextInt());
+
+                cardLayout.next(mainPanel);
+
+                new Thread(gamePanel).start();
+                //   a.start();
+
+            }
+        });
+
 
         gameOverPanel.restart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Tetris.isExit=true;
+                Tetris.initiatLoad=true;
                 gamePanel.setGameState(0);
                 cardLayout.first(mainPanel);
                 cardLayout.next(mainPanel);
@@ -112,6 +146,7 @@ public class MainFrame {
         pausePanel.startAgain.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Tetris.initiatLoad=true;
                 Tetris.exit= false;
                 Tetris.isExit=true;
                 gamePanel.setGameState(0);
@@ -126,20 +161,23 @@ public class MainFrame {
         pausePanel.save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            //    File record=new File("records.txt");
+
                 PrintWriter printWriter= null;
+
                 try {
-                    printWriter = new PrintWriter("records.txt");
+                    printWriter = new PrintWriter(record);
                 } catch (FileNotFoundException ex) {
                     ex.printStackTrace();
                 }
 
-                if(Tetris.getTotalScore() == Integer.parseInt(null))
-                    System.out.print("ai");
-                System.out.print(Tetris.getTotalScore());
-                printWriter.print(Tetris.getTotalLine());
-                printWriter.print(Tetris.getTotalScore());
-                System.out.println("save");
+                //  System.out.print(gamePanel.getTotalScore());
+                //   String line= String.valueOf(Tetris.getTotalLine());
+                // String score=String.valueOf(Tetris.getTotalScore());
+
+                //    printWriter.println(0+" "+line+" "+score);
+                printWriter.println(Tetris.getTotalLine()+" "+Tetris.getTotalScore());
+                //    Tetris.record();
+                printWriter.close();
             }
         });
 
