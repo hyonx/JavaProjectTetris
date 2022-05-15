@@ -8,11 +8,11 @@ public class HomePanel extends JPanel {
     JButton load;
     JButton quit;
     public HomePanel(){
-        Container a=new Container();
+     //   Container a=new Container();
         start = new JButton("start");
         load = new JButton("load");
         quit = new JButton("quit");
-        a.add(start);
+    //    a.add(start);
 
       //  start.setBounds(200,200,40,40);
         this.add(start);
