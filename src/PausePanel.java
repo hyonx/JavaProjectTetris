@@ -12,6 +12,12 @@ public class PausePanel extends JPanel{
         homeAgain=new JButton("HOME");
         save=new JButton("SAVE");
         Continue=new JButton("CONTINUE");
+
+        startAgain.setBounds(150,100,200,80);
+        Continue.setBounds(150,200,200,80);
+        save.setBounds(150,300,200,80);
+        homeAgain.setBounds(150,400,200,80);
+
         this.add(startAgain);
         this.add(Continue);
         this.add(save);
@@ -23,4 +29,3 @@ public class PausePanel extends JPanel{
         homeAgain.setVisible(true);
     }
 }
-
