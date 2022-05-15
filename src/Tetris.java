@@ -12,12 +12,12 @@ public class Tetris extends JPanel implements Runnable {
     @Override
     public void run() {
         if (isExit) {
-            Speed = 400;
             j = 1;
             this.setGameState(0);
             this.wall = new Cell[20][10];
             this.currentOne = Tetromino.randomOne();
             this.nextOne = Tetromino.randomOne();
+
             if (initiatLoad) {
                 totalScore = 0;
                 totalLine = 0;
@@ -26,6 +26,7 @@ public class Tetris extends JPanel implements Runnable {
         if (exit) {
             this.startInitiation();
         }
+
         this.requestFocus();
         try {
             this.Start();
@@ -40,7 +41,7 @@ public class Tetris extends JPanel implements Runnable {
     // Wall is used to memorize every cell except those who belongs to currentOne and nextOne.
     final int CELL_SIZE = 26;
 
-
+    /////////////////////////////////////////////////
     static boolean exit = true;
     static boolean isExit = true;
     static boolean initiatLoad = true;
@@ -71,6 +72,7 @@ public class Tetris extends JPanel implements Runnable {
             e.printStackTrace();
         }
     }
+
 
     public void paint(Graphics g) {
         super.paint(g);
@@ -142,6 +144,7 @@ public class Tetris extends JPanel implements Runnable {
     public static void setTotalScore(int score) {
         totalScore = score;
     }
+    //////////////////////////////////////////////////////////////////
 
     /*定义三个常量：充当游戏的状态*/
     public static final int PLAYING = 0;
@@ -349,21 +352,24 @@ public class Tetris extends JPanel implements Runnable {
         }
     }
 
-      static JButton pause;
+    static JButton pause;
 
     public Tetris() throws FileNotFoundException {
         this.setLayout(null);
         pause = new JButton("PAUSE");
         this.add(pause);
-        pause.setBounds(285,315,250,70);
+        pause.setBounds(280,313,250,70);
         this.setVisible(true);
     }
 
     //速度池。
     private static int Speed = 400;
     private static int j = 1;
-    int[] difficulty = {150, 400, 800};
+    int[] difficulty = {200, 400, 800};
 
+    public static void setSpeed(int s){
+        Speed=s;
+    }
 
     // the startInitiation method contains the initiation of keyListener and focus.
     public void startInitiation() {
@@ -429,10 +435,11 @@ public class Tetris extends JPanel implements Runnable {
         this.requestFocus();
     }
 
-   
+
     //The start method includes the  main logic of this game.
     public void Start() throws FileNotFoundException {
         while (true) {
+
 
             if (game_state == PAUSE)
                 break;
@@ -467,11 +474,8 @@ public class Tetris extends JPanel implements Runnable {
             }
             repaint();
         }
-        //  if(game_state==GAMEOVER)
-        //this.setVisible(false);
+    }
 
-
-    } //lucy add
     public boolean outOfLBounds() {
         Cell[] cells = currentOne.cells;
         for (Cell c : cells) {
