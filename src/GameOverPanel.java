@@ -5,6 +5,7 @@ public class GameOverPanel extends JPanel{
     JButton home;
 
     public GameOverPanel(){
+        this.setLayout(null);
         restart=new JButton("RESTART");
         home=new JButton("HOME");
         this.add(restart);
