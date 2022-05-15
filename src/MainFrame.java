@@ -1,3 +1,4 @@
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -14,6 +15,7 @@ public class MainFrame {
         HomePanel homePanel = new HomePanel();
         GameOverPanel gameOverPanel = new GameOverPanel();
         PausePanel pausePanel = new PausePanel();
+        DifficultyPanel difficultyPanel=new DifficultyPanel();
 
         //设置一个窗口的总面板
         JPanel mainPanel = new JPanel();
@@ -27,16 +29,14 @@ public class MainFrame {
 
         //该卡片布局器中只有home面板和游戏面板
         mainPanel.add(homePanel);
-      //  mainPanel.add(gameOverPanel);
+        mainPanel.add(difficultyPanel);
         mainPanel.add(gamePanel);
         mainPanel.add(pausePanel);
         mainPanel.add(gameOverPanel);
-        //mainPanel.add(pausePanel);
 
 
 
         frame.setContentPane(mainPanel);
-
 
         frame.setSize(535, 595);
         frame.setLocationRelativeTo(null);
@@ -45,13 +45,6 @@ public class MainFrame {
 
         //when game_state is "HOME", we need to display the homePanel;
         //when game_state is "PLAYING", we need to display the gamePanel and start the game;
-
-        Thread a=new Thread(gamePanel);
-        Thread b=new Thread(gamePanel);
-        Thread c=new Thread(gamePanel);
-        Thread d=new Thread(gamePanel);
-        Thread e=new Thread(gamePanel);
-        Thread f=new Thread(gamePanel);
 
 
         homePanel.start.addActionListener(new ActionListener() {
@@ -62,12 +55,57 @@ public class MainFrame {
                 Tetris.isExit=true;
                 gamePanel.setGameState(0);
                 cardLayout.next(mainPanel);
+            }
+        });
 
+        difficultyPanel.easy.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //   Tetris.exit=true;
+                Tetris.initiatLoad=true;
+                Tetris.isExit=true;
+                gamePanel.setGameState(0);
+                cardLayout.next(mainPanel);
+
+                Tetris.setSpeed(800);
                 new Thread(gamePanel).start();
-             //   a.start();
+                //   a.start();
 
             }
         });
+
+        difficultyPanel.middle.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //   Tetris.exit=true;
+                Tetris.initiatLoad=true;
+                Tetris.isExit=true;
+                gamePanel.setGameState(0);
+                cardLayout.next(mainPanel);
+
+                Tetris.setSpeed(400);
+                new Thread(gamePanel).start();
+                //   a.start();
+
+            }
+        });
+
+        difficultyPanel.hard.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //   Tetris.exit=true;
+                Tetris.initiatLoad=true;
+                Tetris.isExit=true;
+                gamePanel.setGameState(0);
+                cardLayout.next(mainPanel);
+
+                Tetris.setSpeed(250);
+                new Thread(gamePanel).start();
+                //   a.start();
+
+            }
+        });
+
         File record=new File("records.txt");
 
         homePanel.load.addActionListener(new ActionListener() {
@@ -93,6 +131,7 @@ public class MainFrame {
                  Tetris.setTotalScore(input.nextInt());
 
                 cardLayout.next(mainPanel);
+                cardLayout.next(mainPanel);
 
                 new Thread(gamePanel).start();
                 //   a.start();
@@ -114,7 +153,7 @@ public class MainFrame {
                //不能用
                 // Tetris.startInitiation();
               //  b.start();
-                new Thread(gamePanel).start();
+              //  new Thread(gamePanel).start();
 
             }
         });
@@ -148,10 +187,13 @@ public class MainFrame {
                 Tetris.exit= false;
                 Tetris.isExit=true;
                 gamePanel.setGameState(0);
-                cardLayout.previous(mainPanel);
-               // Tetris.startInitiation();
+                cardLayout.first(mainPanel);
+                cardLayout.next(mainPanel);
+
+
+                // Tetris.startInitiation();
                 //a.start();
-                new Thread(gamePanel).start();
+               // new Thread(gamePanel).start();
             }
         });
 
@@ -213,9 +255,7 @@ public class MainFrame {
                     break;
                 }
             }
-          //  System.out.print("qqqqq");
             Tetris.exit= false;
-
             cardLayout.last(mainPanel);
             //不能删
             gamePanel.setGameState(0);
