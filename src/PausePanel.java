@@ -7,6 +7,7 @@ public class PausePanel extends JPanel{
     JButton Continue;
 
     public PausePanel(){
+        this.setLayout(null);
         startAgain=new JButton("RESTART");
         homeAgain=new JButton("HOME");
         save=new JButton("SAVE");
