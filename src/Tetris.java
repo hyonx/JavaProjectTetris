@@ -11,22 +11,27 @@ public class Tetris extends JPanel implements Runnable {
 
     @Override
     public void run() {
-        if(isExit){
+        if (isExit) {
             Speed = 400;
             j = 1;
             this.setGameState(0);
             this.wall = new Cell[20][10];
             this.currentOne = Tetromino.randomOne();
             this.nextOne = Tetromino.randomOne();
-            totalScore = 0;
-            totalLine = 0;
+            if (initiatLoad) {
+                totalScore = 0;
+                totalLine = 0;
+            }
         }
-        //this.startInitiation();
-        if(exit){
+        if (exit) {
             this.startInitiation();
         }
         this.requestFocus();
-        this.Start();
+        try {
+            this.Start();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     Tetromino currentOne = Tetromino.randomOne();
@@ -35,10 +40,10 @@ public class Tetris extends JPanel implements Runnable {
     // Wall is used to memorize every cell except those who belongs to currentOne and nextOne.
     final int CELL_SIZE = 26;
 
- /////////////////////////////////////////////////
-    static boolean exit=true;
-    static boolean isExit=true;
-
+    /////////////////////////////////////////////////
+    static boolean exit = true;
+    static boolean isExit = true;
+    static boolean initiatLoad = true;
 
     // The length of every cell in wall and blocks.
     public static BufferedImage blue;
@@ -123,10 +128,18 @@ public class Tetris extends JPanel implements Runnable {
     public static int getTotalLine() {
         return totalLine;
     }
-    public static int getTotalScore(){
+
+    public static int getTotalScore() {
         return totalScore;
     }
 
+    public static void setTotalLine(int line) {
+        totalLine = line;
+    }
+
+    public static void setTotalScore(int score) {
+        totalScore = score;
+    }
     //////////////////////////////////////////////////////////////////
 
     /*定义三个常量：充当游戏的状态*/
@@ -236,7 +249,6 @@ public class Tetris extends JPanel implements Runnable {
     }
 
 
-
     //使用Down键控制四格方块的下落
 
 
@@ -254,6 +266,7 @@ public class Tetris extends JPanel implements Runnable {
             }
         }
     }
+
     // manually control the drop action of currentOne.
     public void handDropAction() {
         while (true) {
@@ -272,23 +285,6 @@ public class Tetris extends JPanel implements Runnable {
     }
 
 
-    // manually control the drop action of currentOne.
-    public void handDropAction(){
-        while(true){
-            if(canDrop()){
-            currentOne.softDrop();
-            }
-            else break;
-        }                     // This while loop aims at quickly letting the currentOne drop down.
-        landToWall();
-        destroyLine();
-        if (!isGameOver()) {
-            currentOne = nextOne;
-            nextOne = Tetromino.randomOne();
-        } else {
-            game_state = GAMEOVER;
-        }
-    }
 
     public boolean isGameOver() {
         Cell[] cells = nextOne.cells;
@@ -375,22 +371,10 @@ public class Tetris extends JPanel implements Runnable {
 
     public Tetris() throws FileNotFoundException {
 
-        pause=new JButton("PAUSE");
+        pause = new JButton("PAUSE");
         this.add(pause);
         this.setVisible(true);
     }
-
-    public void Restart(JButton b1, JButton b2) {
-        game_state = PLAYING;
-        whether_restart = RESTART;
-        this.remove(b1);
-        this.remove(b2);
-
-        this.revalidate();
-        repaint();
-        Start();
-    }
-
 
     //速度池。
     private static int Speed = 400;
@@ -435,8 +419,8 @@ public class Tetris extends JPanel implements Runnable {
                         j--;
                         if (j >= 0)
                             Speed = difficulty[j];
-                        else{
-                            j=0;
+                        else {
+                            j = 0;
                         }
                     }
                     break;
@@ -446,8 +430,8 @@ public class Tetris extends JPanel implements Runnable {
                         if (j < 3)
                             Speed = difficulty[j];
 
-                        else{
-                            j=2;
+                        else {
+                            j = 2;
                         }
                     }
                     break;
@@ -462,103 +446,70 @@ public class Tetris extends JPanel implements Runnable {
         this.requestFocus();
     }
 
-    public void listener(){ KeyListener listener1 = new KeyAdapter() {
-        @Override
-        public void keyPressed(KeyEvent e) {
-            super.keyPressed(e);
-            int code = e.getKeyCode();
-            switch (code) {
-                case KeyEvent.VK_DOWN:
-                    softDropAction();
-                    break;
-                case KeyEvent.VK_LEFT:
-                    moveLeftAction();
-                    break;
-                case KeyEvent.VK_RIGHT:
-                    moveRightAction();
-                    break;
-                case KeyEvent.VK_A:
-                    RotateCounter();
-                    break;
-                case KeyEvent.VK_D:
-                    RotateClockwise();
-                    break;
-                case KeyEvent.VK_W:
-                    handDropAction();
-                    break;
-                case KeyEvent.VK_P:
-                    game_state = PAUSE;
-                    break;
-                case KeyEvent.VK_S:
-                    game_state = PLAYING;
-                    break;
-                case KeyEvent.VK_Q: {
-                    j--;
-                    if (j >= 0)
-                        Speed = difficulty[j];
-                    else{
-                        j=0;
+    public void listener() {
+        KeyListener listener1 = new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+                int code = e.getKeyCode();
+                switch (code) {
+                    case KeyEvent.VK_DOWN:
+                        softDropAction();
+                        break;
+                    case KeyEvent.VK_LEFT:
+                        moveLeftAction();
+                        break;
+                    case KeyEvent.VK_RIGHT:
+                        moveRightAction();
+                        break;
+                    case KeyEvent.VK_A:
+                        RotateCounter();
+                        break;
+                    case KeyEvent.VK_D:
+                        RotateClockwise();
+                        break;
+                    case KeyEvent.VK_W:
+                        handDropAction();
+                        break;
+                    case KeyEvent.VK_P:
+                        game_state = PAUSE;
+                        break;
+                    case KeyEvent.VK_S:
+                        game_state = PLAYING;
+                        break;
+                    case KeyEvent.VK_Q: {
+                        j--;
+                        if (j >= 0)
+                            Speed = difficulty[j];
+                        else {
+                            j = 0;
+                        }
                     }
-                }
-                break;
-                case KeyEvent.VK_E: {
-                    j++;
-                    if (j < 3)
-                        Speed = difficulty[j];
-                    else{
-                        j=2;
-                    }
-                }
-                break;
-                default:
                     break;
+                    case KeyEvent.VK_E: {
+                        j++;
+                        if (j < 3)
+                            Speed = difficulty[j];
+                        else {
+                            j = 2;
+                        }
+                    }
+                    break;
+                    default:
+                        break;
+                }
+                repaint();
             }
-            repaint();
-        }
-    };
+        };
         this.addKeyListener(listener1);
         this.requestFocus();
     }
-        //The start method includes the  main logic of this game.
-        public void Start(){
-            while (true) {
-                if (game_state == PLAYING) {
-                    /*
-                     * 当程序运行到此，会进入睡眠状态，
-                     * 睡眠时间为300毫秒,单位为毫秒
-                     * 400毫秒后，会自动执行后续代码
-                     */
-                    try {
-                        Thread.sleep(Speed);
-
-    }
- //   PrintWriter printWriter=new PrintWriter("records.txt");
-
 
     //The start method includes the  main logic of this game.
-    public void Start() {
-        //if (exit) {
-
-       // }
-        /*
-        else{
-            KeyListener listener2 = new KeyAdapter() {
-                @Override
-                public void keyPressed(KeyEvent e) {
-                    super.keyPressed(e);
-
-                }
-
-            };
-            this.addKeyListener(listener2);
-        }
-
-        this.requestFocus();
-
-
-         */
+    public void Start() throws FileNotFoundException {
         while (true) {
-            if(game_state==PAUSE)
+
+            if (game_state == PAUSE)
                 break;
 
             if (game_state == PLAYING) {
@@ -589,104 +540,157 @@ public class Tetris extends JPanel implements Runnable {
                     }
                 }
             }
+            repaint();
         }
         //  if(game_state==GAMEOVER)
         //this.setVisible(false);
 
 
-
-        public void RotateClockwise () {
-            currentOne.rotateClockwise();
-            if (outOfBounds() || coincide()) {
-                currentOne.rotateCounter();
-            }
-            if (!outOfBounds() && !coincide()) {
-                currentOne.rotateNumber += 1;
-            }
+    } //lucy add
+    public boolean outOfLBounds() {
+        Cell[] cells = currentOne.cells;
+        for (Cell c : cells) {
+            int col = c.getCol();
+            int row = c.getRow();
+            if (col < 0)
+                return true;
         }
-        public void RotateCounter () {
-            currentOne.rotateCounter();
-            if (outOfBounds() || coincide()) {
-                currentOne.rotateClockwise();
-            }
-            if (!outOfBounds() && !coincide()) {
-                currentOne.rotateNumber -= 1;
-            }
+        return false;
+    }
+
+    public boolean outOfRBounds() {
+        Cell[] cells = currentOne.cells;
+        for (Cell c : cells) {
+            int col = c.getCol();
+            int row = c.getRow();
+            if (col > 9)
+                return true;
         }
-        public static void main (String[]args){
-            JFrame frame = new JFrame("玩玩俄罗斯方块");
-            Tetris gamePanel = new Tetris();
-            HomePanel homePanel = new HomePanel();
-            //设置一个窗口的总面板
-            JPanel mainPanel = new JPanel();
-            //创建一个卡片布局器的对象
-            CardLayout cardLayout = new CardLayout();
-            //将主面板的布局器设置为卡片布局器
-            mainPanel.setLayout(cardLayout);
-            //该卡片布局器中只有home面板和游戏面板
-            mainPanel.add(homePanel);
-            mainPanel.add(gamePanel);
-            frame.setContentPane(mainPanel);
-            frame.setSize(535, 595);
-            frame.setLocationRelativeTo(null);
-            frame.setVisible(true);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        return false;
+    }
 
-            //when game_state is "HOME", we need to display the homePanel;
-            //when game_state is "PLAYING", we need to display the gamePanel and start the game;
+    public boolean outOfUPBounds() {
+        Cell[] cells = currentOne.cells;
+        for (Cell c : cells) {
+            int col = c.getCol();
+            int row = c.getRow();
+            if (row <0)
+                return true;
+        }
+        return false;
+    }
 
-            homePanel.start.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    game_state=PLAYING;
-                    cardLayout.last(mainPanel);
-                    new Thread(gamePanel).start();
+    public boolean outOfBtmBounds() {
+        Cell[] cells = currentOne.cells;
+        for (Cell c : cells) {
+            int col = c.getCol();
+            int row = c.getRow();
+            if (row > 19)
+                return true;
+        }
+        return false;
+    }
+
+                public int showGameState () {
+                    return game_state;
                 }
-            });
-        }
-    }
 
-    public int showGameState() {
-        return game_state;
-    }
-
-    public void setGameState(int a) {
-        game_state = a;
-    }
+                public void setGameState ( int a){
+                    game_state = a;
+                }
 
 
-    public void RotateClockwise() {
-        currentOne.rotateClockwise();
-        if (outOfBounds() || coincide()) {
-            currentOne.rotateCounter();
-        }
-        if (!outOfBounds() && !coincide()) {
-            currentOne.rotateNumber += 1;
-        }
-    }
+                public void RotateClockwise() {
+                    currentOne.rotateClockwise();
+                    currentOne.rotateNumber++;
+                    if (outOfUPBounds()|| outOfBtmBounds()) {
+                        currentOne.rotateCounter();
+                        currentOne.rotateNumber--;
+                        return;
+                    }
+                    int leftStep=0;
+                    int rightStep=0;
 
-    public void RotateCounter() {
-        currentOne.rotateCounter();
-        if (outOfBounds() || coincide()) {
-            currentOne.rotateClockwise();
-        }
-        if (!outOfBounds() && !coincide()) {
-            currentOne.rotateNumber -= 1;
-        }
-    }
+                    if (outOfLBounds() ) {
+                        currentOne.moveRight();
+                        rightStep++;
+                    }
+                    if (outOfLBounds() ) {
+                        currentOne.moveRight();
+                        rightStep++;
+                    }
+
+                    if (outOfRBounds() )
+                    {
+                        currentOne.moveLeft();
+                        leftStep++;
+                    }
+                    if (outOfRBounds() )
+                    {
+                        currentOne.moveLeft();
+                        leftStep++;
+                    }
+                    if (coincide() ) {
+                        int i;
+
+                        for(i=0;i<leftStep;i++) {
+                            currentOne.moveRight();
+                        }
+                        for(i=0;i<rightStep;i++) {
+                            currentOne.moveLeft();
+                        }
+
+                        currentOne.rotateCounter();
+                        currentOne.rotateNumber--;
+
+                    }
+
+                }
 
 
-    //有问题！！！！！！！！！！！！！
-    public void Initiation() {
-        System.out.println("qqqqqqq");
-        this.wall = new Cell[20][10];
-        this.currentOne = Tetromino.randomOne();
-        this.nextOne = Tetromino.randomOne();
-        this.totalScore = 0;
-        this.totalLine = 0;
-    }
+                public void RotateCounter() {
+                    currentOne.rotateCounter();
+                    currentOne.rotateNumber--;
+                    if (outOfUPBounds()|| outOfBtmBounds()) {
+                        currentOne.rotateClockwise();
+                        currentOne.rotateNumber++;
+                        return;
+                    }
+                    int leftStep=0;
+                    int rightStep=0;
 
+                    if (outOfLBounds() ) {
+                        currentOne.moveRight();
+                        rightStep++;
+                    }
+                    if (outOfLBounds() ) {
+                        currentOne.moveRight();
+                        rightStep++;
+                    }
 
-}
+                    if (outOfRBounds() )
+                    {
+                        currentOne.moveLeft();
+                        leftStep++;
+                    }
+                    if (outOfRBounds() )
+                    {
+                        currentOne.moveLeft();
+                        leftStep++;
+                    }
+                    if (coincide() ) {
+                        int i;
 
+                        for(i=0;i<leftStep;i++) {
+                            currentOne.moveRight();
+                        }
+                        for(i=0;i<rightStep;i++) {
+                            currentOne.moveLeft();
+                        }
 
+                        currentOne.rotateClockwise();
+                        currentOne.rotateNumber++;
+
+                    }
+                }
+            }
