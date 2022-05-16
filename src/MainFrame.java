@@ -128,8 +128,33 @@ public class MainFrame {
                 //  int line=Integer.parseInt(Read[0]);
                 //  int score=Integer.parseInt(Read[1]);
                 Tetris.setTotalLine(input.nextInt());
-                 Tetris.setTotalScore(input.nextInt());
+                Tetris.setTotalScore(input.nextInt());
 
+                // //读入records里储存的每个cell里面的图片，如果是null表示该处没有方块。
+                // for(Cell[] c:gamePanel.wall){
+                //     for(Cell d:c){
+                //         String s = input.nextLine();
+                //         if(!s.equals("null")){
+                //             d.setImageByLocation(s);
+                //         }
+                //     }
+                // }
+                // //读入currentOne和nextOne的行号列号和图片地址。
+                // for(Cell c:gamePanel.currentOne.cells){
+                //     int col = input.nextInt();
+                //     int row = input.nextInt();
+                //     c.setColRow(col, row);
+                //     String s = input.nextLine();
+                //     c.setImageByLocation(s);
+                // }
+                // for(Cell c:gamePanel.nextOne.cells){
+                //     int col = input.nextInt();
+                //     int row = input.nextInt();
+                //     c.setColRow(col, row);
+                //     String s = input.nextLine();
+                //     c.setImageByLocation(s);
+                // }
+                input.close();
                 cardLayout.next(mainPanel);
                 cardLayout.next(mainPanel);
 
@@ -145,7 +170,7 @@ public class MainFrame {
             public void actionPerformed(ActionEvent e) {
                 Tetris.isExit=true;
                 Tetris.initiatLoad=true;
-                gamePanel.setGameState(0);
+                gamePanel.setGameState(Tetris.HOME);
                 cardLayout.first(mainPanel);
                 cardLayout.next(mainPanel);
 
@@ -161,7 +186,7 @@ public class MainFrame {
         gameOverPanel.home.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                gamePanel.setGameState(3);
+                gamePanel.setGameState(Tetris.HOME);
                 cardLayout.first(mainPanel);
                 //也许不需要
               //  new Thread(gamePanel).start();
@@ -173,7 +198,7 @@ public class MainFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Tetris.exit= false;
-                gamePanel.setGameState(3);
+                gamePanel.setGameState(Tetris.HOME);
                 cardLayout.first(mainPanel);
               // new Thread(gamePanel).start();
                // a.start();
@@ -186,7 +211,7 @@ public class MainFrame {
                 Tetris.initiatLoad=true;
                 Tetris.exit= false;
                 Tetris.isExit=true;
-                gamePanel.setGameState(0);
+                gamePanel.setGameState(Tetris.PLAYING);
                 cardLayout.first(mainPanel);
                 cardLayout.next(mainPanel);
 
@@ -216,6 +241,24 @@ public class MainFrame {
 
                 //    printWriter.println(0+" "+line+" "+score);
                 printWriter.println(Tetris.getTotalLine()+" "+Tetris.getTotalScore());
+                //先将wall中的每个cell的imagelocation保存到文件中。空白的地方返回值是“null”.
+                // for(Cell[] c:gamePanel.wall){
+                //     for(Cell d:c){
+                //         printWriter.println(d.getImageLocation());
+                //     }
+                // }
+                // //再保存currentOne的行列号和图片地址，以及nextOne的行列号和图片地址。
+                // //每个cell的行列号保存完之后紧接着是图片地址。先列后行。
+                // for(Cell c:gamePanel.currentOne.cells){
+                //     printWriter.println(c.getCol());
+                //     printWriter.println(c.getRow());
+                //     printWriter.println(c.getImageLocation());
+                // }
+                // for(Cell c:gamePanel.nextOne.cells){
+                //     printWriter.println(c.getCol());
+                //     printWriter.println(c.getRow());
+                //     printWriter.println(c.getImageLocation());
+                // }
                 //    Tetris.record();
                 printWriter.close();
             }
@@ -226,7 +269,7 @@ public class MainFrame {
             public void actionPerformed(ActionEvent e) {
                 Tetris.exit= false;
                 Tetris.isExit=false;
-                gamePanel.setGameState(0);
+                gamePanel.setGameState(Tetris.PLAYING);
                 cardLayout.previous(mainPanel);
                 // Tetris.startInitiation();
                 //a.start();
@@ -239,7 +282,7 @@ public class MainFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Tetris.exit= false;
-                gamePanel.setGameState(1);
+                gamePanel.setGameState(Tetris.PAUSE);
                 cardLayout.next(mainPanel);
                // a.start();
               //  new Thread(gamePanel).start();
@@ -251,7 +294,7 @@ public class MainFrame {
             while (true) {
                 System.out.print("");
                 System.out.printf("\r");
-                if (gamePanel.showGameState() == 2) {
+                if (gamePanel.showGameState() == Tetris.GAMEOVER) {
                     break;
                 }
             }

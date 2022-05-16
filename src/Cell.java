@@ -54,4 +54,36 @@ public class Cell {
     public void setImage(BufferedImage image){
         this.image = image;
     }
+    public String getImageLocation(){
+        String s = null;
+        if(this.image==Tetris.blue){
+            s = "blue.png";
+        }
+        else if(this.image==Tetris.orange){
+            s = "orange.png";
+        }else if(this.image==Tetris.green){
+            s = "green.png";
+        }else if(this.image==Tetris.purple){
+            s = "purple.png";
+        }else if(this.image==Tetris.red){
+            s = "red.png";
+        }else if(this.image==Tetris.skyblue){
+            s = "skyblue.png";
+        }else if(this.image==Tetris.yellow){
+            s = "yellow.png";
+        }
+        else s = "null";
+        return s;
+    }
+    public void setImageByLocation(String s){
+        switch(s){
+            case "blue":this.setImage(Tetris.blue);break;
+            case "orange":this.setImage(Tetris.orange);break;
+            case "green":this.setImage(Tetris.green);break;
+            case "purple":this.setImage(Tetris.purple);break;
+            case "red":this.setImage(Tetris.red);break;
+            case "skyblue":this.setImage(Tetris.skyblue);break;
+            case "yellow":this.setImage(Tetris.yellow);break;
+        }
+    }
 }

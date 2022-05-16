@@ -58,7 +58,6 @@ public class Tetromino {
             case 5:t=new S();break;
             case 6:t=new Z();break;
         }
-        Tetromino L = new T();
         return t;
     }
 
@@ -77,9 +76,7 @@ public class Tetromino {
         }
         return t;
     }
-
-
-
+    
 }
 class T extends Tetromino{
         public T(){

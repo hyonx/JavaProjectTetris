@@ -13,7 +13,7 @@ public class Tetris extends JPanel implements Runnable {
     public void run() {
         if (isExit) {
             j = 1;
-            this.setGameState(0);
+            this.setGameState(PLAYING);
             this.wall = new Cell[20][10];
             this.currentOne = Tetromino.randomOne();
             this.nextOne = Tetromino.randomOne();
@@ -35,8 +35,8 @@ public class Tetris extends JPanel implements Runnable {
         }
     }
 
-    Tetromino currentOne = Tetromino.randomOne();
-    Tetromino nextOne = Tetromino.randomOne();
+    public Tetromino currentOne = Tetromino.randomOne();
+    public Tetromino nextOne = Tetromino.randomOne();
     Cell[][] wall = new Cell[20][10];
     // Wall is used to memorize every cell except those who belongs to currentOne and nextOne.
     final int CELL_SIZE = 26;
@@ -44,6 +44,7 @@ public class Tetris extends JPanel implements Runnable {
     /////////////////////////////////////////////////
     static boolean exit = true;
     static boolean isExit = true;
+    //如果在home界面重新开始，则initiatload=true，如果读取存档，则initiatload=false。
     static boolean initiatLoad = true;
 
     // The length of every cell in wall and blocks.
@@ -155,7 +156,7 @@ public class Tetris extends JPanel implements Runnable {
     public static final int QUIT = 4;
     /*定义一个属性，存储游戏的当前状态*/
     private static int game_state = HOME;
-    private int whether_restart = PLAYING;
+    
 
 
     public static void setGame_state(int x) {
