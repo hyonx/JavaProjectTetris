@@ -1,11 +1,14 @@
 import javax.swing.*;
 
-public class PausePanel extends JPanel{
+public class PausePanel extends JPanel implements Runnable{
     JButton startAgain;
     JButton homeAgain;
     JButton save;
     JButton Continue;
-
+@Override
+    public void run(){
+        
+    }
     public PausePanel(){
         this.setLayout(null);
         startAgain=new JButton("RESTART");
