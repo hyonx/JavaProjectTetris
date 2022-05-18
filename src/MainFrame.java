@@ -1,4 +1,5 @@
 
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -47,6 +48,9 @@ public class MainFrame {
         //when game_state is "HOME", we need to display the homePanel;
         //when game_state is "PLAYING", we need to display the gamePanel and start the game;
 
+        //while中的true可换成参数来控制音乐的停止播放
+        new Thread(()->{while(true) {Tetris.playMusic();}
+        }).start();
 
         homePanel.start.addActionListener(new ActionListener() {
             @Override
@@ -63,6 +67,7 @@ public class MainFrame {
             public void actionPerformed(ActionEvent e) {
                 Tetris.isExit = true;
                 Tetris.initiatLoad = false;
+                Tetris.flag=false;
                 cardLayout.next(mainPanel);
                 cardLayout.next(mainPanel);
                 new Thread(gamePanel).start();
@@ -74,6 +79,7 @@ public class MainFrame {
                 //   Tetris.exit=true;
                 Tetris.initiatLoad=true;
                 Tetris.isExit=true;
+                Tetris.flag=false;
                 gamePanel.setGameState(Tetris.PLAYING);
                 cardLayout.next(mainPanel);
                 Tetris.setSpeed(800);
@@ -88,6 +94,7 @@ public class MainFrame {
                 //   Tetris.exit=true;
                 Tetris.initiatLoad=true;
                 Tetris.isExit=true;
+                Tetris.flag=false;
                 gamePanel.setGameState(0);
                 cardLayout.next(mainPanel);
                 Tetris.setSpeed(400);
@@ -103,6 +110,7 @@ public class MainFrame {
                 //   Tetris.exit=true;
                 Tetris.initiatLoad=true;
                 Tetris.isExit=true;
+                Tetris.flag=false;
                 gamePanel.setGameState(0);
                 cardLayout.next(mainPanel);
                 Tetris.setSpeed(250);
@@ -163,6 +171,7 @@ public class MainFrame {
                 Tetris.initiatLoad=true;
                 Tetris.exit= false;
                 Tetris.isExit=true;
+                Tetris.flag=true;
                 gamePanel.setGameState(Tetris.PLAYING);
                 cardLayout.first(mainPanel);
                 cardLayout.next(mainPanel);
@@ -224,6 +233,7 @@ public class MainFrame {
             public void actionPerformed(ActionEvent e) {
                 Tetris.exit= false;
                 Tetris.isExit=false;
+                Tetris.flag=false;
                 gamePanel.setGameState(Tetris.PLAYING);
                 cardLayout.previous(mainPanel);
                 // Tetris.startInitiation();
@@ -237,6 +247,7 @@ public class MainFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Tetris.exit= false;
+                Tetris.flag=true;
                 gamePanel.setGameState(Tetris.PAUSE);
                 cardLayout.next(mainPanel);
                // a.start();
@@ -254,6 +265,7 @@ public class MainFrame {
                 }
             }
             Tetris.exit= false;
+            Tetris.flag=true;
             cardLayout.last(mainPanel);
             //不能删
             gamePanel.setGameState(Tetris.PLAYING);
