@@ -1,8 +1,9 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.util.Scanner;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -11,23 +12,80 @@ public class Tetris extends JPanel implements Runnable {
 
     @Override
     public void run() {
+        this.wall = new Cell[20][10];
+        //让wall中没有块的地方赋一个不为null的初值，以便之后读入load时方便调用对象赋图片。
+        for(int i=0;i<20;i++){
+            for(int j=0;j<10;j++){
+                wall[i][j] = new Cell(-1,-1);
+            }
+        }
         if (isExit) {
+            if (initiatLoad) {
             j = 1;
             this.setGameState(PLAYING);
-            this.wall = new Cell[20][10];
+
             this.currentOne = Tetromino.randomOne();
             this.nextOne = Tetromino.randomOne();
-
-            if (initiatLoad) {
                 totalScore = 0;
                 totalLine = 0;
             }
+            else{
+                this.setGameState(PLAYING);
+                try {
+
+                    File file = new File("records.txt");
+                    Scanner input = new Scanner(file);
+                    setSpeed(input.nextInt());
+                    setTotalLine(input.nextInt());
+                    setTotalScore(input.nextInt());
+                    input.nextLine();
+                    //读入records里储存的每个cell里面的图片，如果是null表示该处没有方块。
+                    for(int i=0;i<20;i++){
+                        for(int j=0;j<10;j++){
+                            String s = input.nextLine();
+                            if (!s.equals("null")) {
+                                wall[i][j].setImageByLocation(s);
+                                wall[i][j].setColRow(j,i);
+                            }
+                        }
+                    }
+                    //读入currentOne和nextOne的行号列号和图片地址。
+                    String typeOfCurrentOne = input.nextLine();
+                    currentOne = Tetromino.generateByName(typeOfCurrentOne);
+                    for (Cell c : this.currentOne.cells) {
+                        int col = input.nextInt();
+                        int row = input.nextInt();
+                        c.setColRow(col, row);
+                        input.nextLine();
+                        String s = input.nextLine();
+                        c.setImageByLocation(s);
+                    }
+                    String typeOfNextOne = input.nextLine();
+                    nextOne = Tetromino.generateByName(typeOfNextOne);
+                    for (Cell c : this.nextOne.cells) {
+                        int col = input.nextInt();
+                        int row = input.nextInt();
+                        input.nextLine();
+                        c.setColRow(col, row);
+                        String s = input.nextLine();
+                        c.setImageByLocation(s);
+                    }
+                    //input.close();
+                }catch (FileNotFoundException e){
+                    e.printStackTrace();
+                }
+            }
         }
-        if (exit) {
+        if (exit) {//如果exit为真，就重新创建一个gamePanel上的键盘监听器。在同一局游戏中，
+                   //最开始将exit赋为真，点击pause按钮后就将exit保持为假。
+                   //一局游戏中除非在homepanel或者pausepanel重新开始否则只需要调用该方法一次。
+                   //如果没有退出游戏而只是在homepanelLoad的话，则不需要调用该方法。
             this.startInitiation();
         }
-
         this.requestFocus();
+        if(exit==false){
+            Tetris.setGame_state(PLAYING);
+        }
         try {
             this.Start();
         } catch (FileNotFoundException e) {
@@ -37,13 +95,14 @@ public class Tetris extends JPanel implements Runnable {
 
     public Tetromino currentOne = Tetromino.randomOne();
     public Tetromino nextOne = Tetromino.randomOne();
-    Cell[][] wall = new Cell[20][10];
+    Cell[][] wall;
     // Wall is used to memorize every cell except those who belongs to currentOne and nextOne.
     final int CELL_SIZE = 26;
 
     /////////////////////////////////////////////////
+    //
     static boolean exit = true;
-    static boolean isExit = true;
+    static boolean  isExit = true;
     //如果在home界面重新开始，则initiatload=true，如果读取存档，则initiatload=false。
     static boolean initiatLoad = true;
 
@@ -93,7 +152,7 @@ public class Tetris extends JPanel implements Runnable {
             for (int j = 0; j < 10; j++) {
                 int x = j * CELL_SIZE;
                 int y = i * CELL_SIZE;
-                if (wall[i][j] == null) {
+                if (wall[i][j].getCol()==-1&&wall[i][j].getRow()==-1) {
                     a.drawRect(x, y, CELL_SIZE, CELL_SIZE);
                 } else {
                     a.drawImage(wall[i][j].getImage(), x, y, null);
@@ -157,6 +216,7 @@ public class Tetris extends JPanel implements Runnable {
     /*定义一个属性，存储游戏的当前状态*/
     private static int game_state = HOME;
     
+    
 
 
     public static void setGame_state(int x) {
@@ -196,7 +256,7 @@ public class Tetris extends JPanel implements Runnable {
         for (Cell c : cells) {
             int row = c.getRow();
             int col = c.getCol();
-            if (wall[row][col] != null)
+            if (wall[row][col].getCol()!= -1&&wall[row][col].getRow()!=-1)
                 return true;
         }
         return false;
@@ -245,10 +305,9 @@ public class Tetris extends JPanel implements Runnable {
             int col = c.getCol();
             if (row == 19) {//判断是否到达底部
                 return false;
-            } else if (wall[row + 1][col] != null) {//判断下方是否有方块
+            } else if (wall[row + 1][col].getCol()!=-1&&wall[row + 1][col].getRow()!=-1) {//判断下方是否有方块
                 return false;
             }
-
         }
         return true;
     }
@@ -296,7 +355,7 @@ public class Tetris extends JPanel implements Runnable {
         for (Cell c : cells) {
             int row = c.getRow();
             int col = c.getCol();
-            if (wall[row][col] != null) {
+            if (wall[row + 1][col].getCol()!=-1&&wall[row + 1][col].getRow()!=-1) {
                 return true;
             }
         }
@@ -307,7 +366,7 @@ public class Tetris extends JPanel implements Runnable {
         //取出当前行的所有列
         Cell[] line = wall[row];
         for (Cell r : line) {
-            if (r == null) {
+            if (r.getCol()==-1&&r.getRow()==-1) {
                 return false;
             }
         }
@@ -315,20 +374,30 @@ public class Tetris extends JPanel implements Runnable {
     }
 
     public void destroyLine() {
-        //统计销毁行的行数
+        //统计销毁行的行数用于计分
         int lines = 0;
         Cell[] cells = currentOne.cells;
         for (Cell c : cells) {
             //取出每个元素所在的行号
             int row = c.getRow();
             while (row < 20) {
+                //从当前所在行向下循环，依次判断每一行是否填满。
                 if (isFullLine(row)) {
                     lines++;
+                    //如果被填满，则将当前行重新赋初值。
                     wall[row] = new Cell[10];
+                    for(int j=0;j<10;j++){
+                        wall[row][j] = new Cell(-1,-1);
+                    }
+                    //并且将该行上面所有的行拷贝到对应行的下一行。
                     for (int i = row; i > 0; i--) {
                         System.arraycopy(wall[i - 1], 0, wall[i], 0, 10);
                     }
+                    //然后补上缺失的第零行。
                     wall[0] = new Cell[10];
+                    for(int j=0;j<10;j++){
+                        wall[0][j] = new Cell(-1,-1);
+                    }
                 }
                 row++;
             }
@@ -370,6 +439,9 @@ public class Tetris extends JPanel implements Runnable {
 
     public static void setSpeed(int s){
         Speed=s;
+    }
+    public static int getSpeed(){
+        return Speed;
     }
 
     // the startInitiation method contains the initiation of keyListener and focus.
@@ -440,8 +512,6 @@ public class Tetris extends JPanel implements Runnable {
     //The start method includes the  main logic of this game.
     public void Start() throws FileNotFoundException {
         while (true) {
-
-
             if (game_state == PAUSE)
                 break;
 

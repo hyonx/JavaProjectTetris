@@ -1,5 +1,10 @@
 import java.awt.image.BufferedImage;
+
+import javax.crypto.NullCipher;
+import javax.imageio.ImageIO;
+
 public class Cell {
+
     private int col;
     private int row;
     private BufferedImage image;
@@ -8,6 +13,10 @@ public class Cell {
         this.col = col;
         this.row = row;
         this.image = image;
+    }
+    public Cell(int col, int row){
+        this.col = col;
+        this.row = row;
     }
 
     //move left
@@ -56,34 +65,40 @@ public class Cell {
     }
     public String getImageLocation(){
         String s = null;
-        if(this.image==Tetris.blue){
-            s = "blue.png";
+        if(this.image!=null){
+            if(Tetris.blue==this.image){
+                s = "blue.png";
         }
-        else if(this.image==Tetris.orange){
-            s = "orange.png";
-        }else if(this.image==Tetris.green){
-            s = "green.png";
-        }else if(this.image==Tetris.purple){
-            s = "purple.png";
-        }else if(this.image==Tetris.red){
-            s = "red.png";
-        }else if(this.image==Tetris.skyblue){
-            s = "skyblue.png";
-        }else if(this.image==Tetris.yellow){
-            s = "yellow.png";
+            if(Tetris.orange==this.image){
+                s = "orange.png";
         }
-        else s = "null";
+            if(Tetris.green==this.image){
+                s = "green.png";
+        }
+            if(Tetris.purple==this.image){
+                s = "purple.png";
+        }
+             if(this.image==Tetris.red){
+                s = "red.png";
+        }
+             if(Tetris.skyblue==this.image){
+                s = "skyblue.png";
+        }
+             if(Tetris.yellow==this.image){
+                s = "yellow.png";
+        }
+    }
         return s;
     }
     public void setImageByLocation(String s){
         switch(s){
-            case "blue":this.setImage(Tetris.blue);break;
-            case "orange":this.setImage(Tetris.orange);break;
-            case "green":this.setImage(Tetris.green);break;
-            case "purple":this.setImage(Tetris.purple);break;
-            case "red":this.setImage(Tetris.red);break;
-            case "skyblue":this.setImage(Tetris.skyblue);break;
-            case "yellow":this.setImage(Tetris.yellow);break;
+            case "blue.png":this.setImage(Tetris.blue);break;
+            case "orange.png":this.setImage(Tetris.orange);break;
+            case "green.png":this.setImage(Tetris.green);break;
+            case "purple.png":this.setImage(Tetris.purple);break;
+            case "red.png":this.setImage(Tetris.red);break;
+            case "skyblue.png":this.setImage(Tetris.skyblue);break;
+            case "yellow.png":this.setImage(Tetris.yellow);break;
         }
     }
 }

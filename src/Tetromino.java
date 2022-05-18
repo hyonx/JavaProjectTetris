@@ -61,6 +61,66 @@ public class Tetromino {
         return t;
     }
 
+    //This method is for generating a Tetromino object used for read currentOne and nextOne from the records.txt.
+    public static Tetromino generateByName(String x){
+        Tetromino y = null;
+        if(x.equals("T")){
+            T t = new T();
+            y=t;
+        }
+        if(x.equals("O")){
+            O o = new O();
+            y=o;
+        }
+        else if(x.equals("I")){
+            I i = new I();
+            y=i;
+        }
+        else if(x.equals("J")){
+            J j = new J();
+            y=j;
+        }
+        else if(x.equals("L")){
+            L l = new L();
+            y=l;
+        }
+        else if(x.equals("S")){
+            S s = new S();
+            y=s;
+        }
+        else if(x.equals("Z")){
+            Z z = new Z();
+            y=z;
+        }
+        return y;
+    }
+
+    //This method returns the type of the Tetromino object.
+    public  String getTetrominoType(){
+        String s = "";
+        if(this instanceof T){
+            s="T";
+        }
+        if(this instanceof O){
+            s="O";
+        }
+        if(this instanceof I){
+            s="I";
+        }
+        if(this instanceof J){
+            s="J";
+        }
+        if(this instanceof L){
+            s="L";
+        }
+        if(this instanceof S){
+            s="S";
+        }
+        if(this instanceof Z){
+            s="Z";
+        }
+        return s;
+    }
     //This is for generating random colors with certain pictures.It has the return value of BufferedImage.
     public static BufferedImage randomColor(){
         BufferedImage t = null;
