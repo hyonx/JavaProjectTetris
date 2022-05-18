@@ -512,6 +512,37 @@ public class Tetris extends JPanel implements Runnable {
     //The start method includes the  main logic of this game.
     public void Start() throws FileNotFoundException {
         while (true) {
+            if(Speed==800||Speed==650||Speed==500||Speed==400){
+                if(totalLine>5)
+                    Speed=650;
+                if(totalLine>10)
+                    Speed=500;
+                if(totalLine>15)
+                    Speed=400;
+                if(totalLine>20)
+                    Speed=300;
+            }
+
+            if(Speed==400||Speed==350||Speed==280||Speed==230){
+                if(totalLine>5)
+                    Speed=350;
+                if(totalLine>10)
+                    Speed=280;
+                if(totalLine>15)
+                    Speed=230;
+                if(totalLine>20)
+                    Speed=200;
+            }
+            if(Speed==250||Speed==230||Speed==210||Speed==200){
+                if(totalLine>5)
+                    Speed=230;
+                if(totalLine>10)
+                    Speed=210;
+                if(totalLine>15)
+                    Speed=200;
+                if(totalLine>20)
+                    Speed=180;
+            }
             if (game_state == PAUSE)
                 break;
 
@@ -693,4 +724,40 @@ public class Tetris extends JPanel implements Runnable {
 
                     }
                 }
+        public  static boolean flag = true;
+
+    public static void playMusic() {
+        try {
+            AudioInputStream music = AudioSystem.getAudioInputStream(new File("C:/lobby.wav"));
+            AudioInputStream Music = AudioSystem.getAudioInputStream(new File("C:/select.wav"));
+
+            AudioFormat format = music.getFormat();
+            final SourceDataLine line;
+
+            DataLine.Info info = new DataLine.Info(SourceDataLine.class, format);
+
+            line = (SourceDataLine) AudioSystem.getLine(info);
+            line.open(format);
+            line.start();
+
+            int nByte = 0;
+            final int SIZE = 1024 * 64;
+            byte[] buffer = new byte[SIZE];
+
+            while (nByte != -1) {        // 判断 播放/暂停 状态
+                if (flag) {
+                    nByte = music.read(buffer, 0, SIZE);
+                    if (nByte != -1)
+                        line.write(buffer, 0, nByte);
+                } else {
+                    nByte = Music.read(buffer, 0, SIZE);
+                    if (nByte != -1)
+                        line.write(buffer, 0, nByte);
+                }
+            }
+            line.stop();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
             }
