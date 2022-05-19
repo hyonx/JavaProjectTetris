@@ -5,6 +5,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.SourceDataLine;
 import javax.swing.*;
 
 public class Tetris extends JPanel implements Runnable {
@@ -728,8 +733,8 @@ public class Tetris extends JPanel implements Runnable {
 
     public static void playMusic() {
         try {
-            AudioInputStream music = AudioSystem.getAudioInputStream(new File("C:/lobby.wav"));
-            AudioInputStream Music = AudioSystem.getAudioInputStream(new File("C:/select.wav"));
+            AudioInputStream music = AudioSystem.getAudioInputStream(new File("D:/大一（下）/java/网课代码/JavaProjectTetris/lobby.wav"));
+            AudioInputStream Music = AudioSystem.getAudioInputStream(new File("D:/大一（下）/java/网课代码/JavaProjectTetris/select.wav"));
 
             AudioFormat format = music.getFormat();
             final SourceDataLine line;
