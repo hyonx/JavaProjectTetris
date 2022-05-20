@@ -4,7 +4,7 @@ public class PausePanel extends JPanel{
     JButton homeAgain;
     JButton save;
     JButton Continue;
-    JLabel background;
+    
     public static ImageIcon backgroundImage;
 
     static {
@@ -22,24 +22,22 @@ public class PausePanel extends JPanel{
         save=new JButton("SAVE");
         Continue=new JButton("CONTINUE");
 
-        background = new JLabel();
-        backgroundImage.setImage(backgroundImage.getImage().getScaledInstance(535, 595, 1));
-        background.setIcon(backgroundImage);
+       
 
 
-        background.setBounds(0, 0,535,595);
-        startAgain.setBounds(150,100,200,80);
-        Continue.setBounds(150,200,200,80);
-        save.setBounds(150,300,200,80);
-        homeAgain.setBounds(150,400,200,80);
+        
+        startAgain.setBounds(150*2,100*2,200*2,80*2);
+        Continue.setBounds(150*2,200*2,200*2,80*2);
+        save.setBounds(150*2,300*2,200*2,80*2);
+        homeAgain.setBounds(150*2,400*2,200*2,80*2);
         
         this.add(startAgain);
         this.add(Continue);
         this.add(save);
         this.add(homeAgain);
-        this.add(background);
+        
 
-        background.setVisible(true);
+        
         save.setVisible(true);
         Continue.setVisible(true);
         startAgain.setVisible(true);

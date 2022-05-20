@@ -102,7 +102,7 @@ public class Tetris extends JPanel implements Runnable {
     public Tetromino nextOne = Tetromino.randomOne();
     Cell[][] wall;
     // Wall is used to memorize every cell except those who belongs to currentOne and nextOne.
-    final int CELL_SIZE = 26;
+    final int CELL_SIZE = 26*2;
 
     /////////////////////////////////////////////////
     //
@@ -121,6 +121,7 @@ public class Tetris extends JPanel implements Runnable {
     public static BufferedImage yellow;
     public static BufferedImage background;
     public static BufferedImage gameOver;
+    public static BufferedImage tetris;
 
     static {
         try {
@@ -133,6 +134,7 @@ public class Tetris extends JPanel implements Runnable {
             yellow = ImageIO.read(Tetris.class.getResource("yellow.png"));
             background = ImageIO.read(Tetris.class.getResource("background.png"));
             gameOver = ImageIO.read(Tetris.class.getResource("a.png"));
+            tetris = ImageIO.read(Tetris.class.getResource("q.png"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -142,13 +144,13 @@ public class Tetris extends JPanel implements Runnable {
     public void paint(Graphics g) {
         super.paint(g);
         g.drawImage(background, 0, 0, null);
-        g.translate(15, 15);
+        g.translate(15*2, 15*2);
         paintWall(g);
         paintCurrentOne(g);
         paintNextOne(g);
         paintScore(g);
         paintState(g);
-        g.translate(-15, -15);
+        g.translate(-15*2, -15*2);
         super.paintChildren(g);
     }
 
@@ -178,8 +180,8 @@ public class Tetris extends JPanel implements Runnable {
     public void paintNextOne(Graphics g) {
         Cell[] cells = nextOne.cells;
         for (Cell c : cells) {
-            int x = c.getCol() * CELL_SIZE + 260;
-            int y = c.getRow() * CELL_SIZE + 26;
+            int x = c.getCol() * CELL_SIZE + 260*2;
+            int y = c.getRow() * CELL_SIZE + 26*2;
             g.drawImage(c.getImage(), x, y, null);
         }
     }
@@ -189,9 +191,9 @@ public class Tetris extends JPanel implements Runnable {
     private static int totalLine = 0;
 
     public void paintScore(Graphics g) {
-        g.setFont(new Font(Font.SANS_SERIF, Font.ITALIC, 30));
-        g.drawString("SCORES:" + totalScore, 285, 160);
-        g.drawString("LINES:" + totalLine, 285, 215);
+        g.setFont(new Font(Font.SANS_SERIF, Font.ITALIC, 30*2));
+        g.drawString("SCORES:" + totalScore, 285*2, 160*2);
+        g.drawString("LINES:" + totalLine, 285*2, 215*2);
     }
 
     public static int getTotalLine() {
@@ -245,12 +247,12 @@ public class Tetris extends JPanel implements Runnable {
         if (game_state == PLAYING) {
 
 
-            g.setFont(new Font(Font.SANS_SERIF, Font.ITALIC, 30));
-            g.drawString("PLAYING", 285, 275);
+            g.setFont(new Font(Font.SANS_SERIF, Font.ITALIC, 30*2));
+            g.drawString("PLAYING", 285*2, 275*2);
         } else if (game_state == PAUSE) {
-            g.setFont(new Font(Font.SANS_SERIF, Font.ITALIC, 30));
+            g.setFont(new Font(Font.SANS_SERIF, Font.ITALIC, 3030*2));
 
-            g.drawString("PAUSE", 285, 275);
+            g.drawString("PAUSE", 28530*2, 27530*2);
 
         }
     }
@@ -433,7 +435,7 @@ public class Tetris extends JPanel implements Runnable {
         this.setLayout(null);
         pause = new JButton("PAUSE");
         this.add(pause);
-        pause.setBounds(280,313,250,70);
+        pause.setBounds(280*2,313*2,250*2,70*2);
         this.setVisible(true);
     }
 
@@ -730,7 +732,7 @@ public class Tetris extends JPanel implements Runnable {
     public static void playMusic() {
         try {
             AudioInputStream music = AudioSystem.getAudioInputStream(new File("src/lobby.wav"));
-            AudioInputStream Music = AudioSystem.getAudioInputStream(new File("src/select.wav"));
+            AudioInputStream Music = AudioSystem.getAudioInputStream(new File("src/h.wav"));
 
             AudioFormat format = music.getFormat();
             final SourceDataLine line;
