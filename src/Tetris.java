@@ -75,7 +75,7 @@ public class Tetris extends JPanel implements Runnable {
                         String s = input.nextLine();
                         c.setImageByLocation(s);
                     }
-                    //input.close();
+                    input.close();
                 }catch (FileNotFoundException e){
                     e.printStackTrace();
                 }
@@ -587,7 +587,6 @@ public class Tetris extends JPanel implements Runnable {
         Cell[] cells = currentOne.cells;
         for (Cell c : cells) {
             int col = c.getCol();
-            int row = c.getRow();
             if (col < 0)
                 return true;
         }
@@ -598,7 +597,6 @@ public class Tetris extends JPanel implements Runnable {
         Cell[] cells = currentOne.cells;
         for (Cell c : cells) {
             int col = c.getCol();
-            int row = c.getRow();
             if (col > 9)
                 return true;
         }
@@ -608,7 +606,6 @@ public class Tetris extends JPanel implements Runnable {
     public boolean outOfUPBounds() {
         Cell[] cells = currentOne.cells;
         for (Cell c : cells) {
-            int col = c.getCol();
             int row = c.getRow();
             if (row <0)
                 return true;
@@ -619,7 +616,6 @@ public class Tetris extends JPanel implements Runnable {
     public boolean outOfBtmBounds() {
         Cell[] cells = currentOne.cells;
         for (Cell c : cells) {
-            int col = c.getCol();
             int row = c.getRow();
             if (row > 19)
                 return true;
@@ -733,8 +729,8 @@ public class Tetris extends JPanel implements Runnable {
 
     public static void playMusic() {
         try {
-            AudioInputStream music = AudioSystem.getAudioInputStream(new File("D:/大一（下）/java/网课代码/JavaProjectTetris/lobby.wav"));
-            AudioInputStream Music = AudioSystem.getAudioInputStream(new File("D:/大一（下）/java/网课代码/JavaProjectTetris/select.wav"));
+            AudioInputStream music = AudioSystem.getAudioInputStream(new File("src/lobby.wav"));
+            AudioInputStream Music = AudioSystem.getAudioInputStream(new File("src/select.wav"));
 
             AudioFormat format = music.getFormat();
             final SourceDataLine line;

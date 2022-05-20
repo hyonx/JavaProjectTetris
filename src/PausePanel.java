@@ -1,6 +1,4 @@
 import javax.swing.*;
-
-import javafx.scene.image.Image;
 public class PausePanel extends JPanel{
     JButton startAgain;
     JButton homeAgain;

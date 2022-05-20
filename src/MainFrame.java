@@ -1,8 +1,5 @@
-
-
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,46 +7,53 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.util.Scanner;
 
 public class MainFrame {
     public static void main(String[] args) throws FileNotFoundException {
+        //创建游戏的主窗口
         JFrame frame = new JFrame("玩玩俄罗斯方块");
-
-        Tetris gamePanel = new Tetris();
+         //创建主页面panel
         HomePanel homePanel = new HomePanel();
-        GameOverPanel gameOverPanel = new GameOverPanel();
-        PausePanel pausePanel = new PausePanel();
+
+        //创建规则panel
+
+
+        //难度选择时的panel
         DifficultyPanel difficultyPanel=new DifficultyPanel();
 
-        //设置一个窗口的总面板
+        //创建游戏panel
+        Tetris gamePanel = new Tetris(); 
+
+        //创建暂停时的panel
+        PausePanel pausePanel = new PausePanel();
+
+        //创建gameover时的panel
+        GameOverPanel gameOverPanel = new GameOverPanel();
+       
+        
+
+        //创建用于存放所有panel的mainpanel，方便用卡片布局器进行界面切换
         JPanel mainPanel = new JPanel();
 
        //创建一个卡片布局器的对象
         CardLayout cardLayout = new CardLayout();
 
-
-        //将主面板的布局器设置为卡片布局器
+        //将主面板的布局器设置为卡片布局
         mainPanel.setLayout(cardLayout);
 
-        //该卡片布局器中只有home面板和游戏面板
+        //该卡片布局器中存放了游戏中所有的panel
         mainPanel.add(homePanel);
         mainPanel.add(difficultyPanel);
         mainPanel.add(gamePanel);
         mainPanel.add(pausePanel);
         mainPanel.add(gameOverPanel);
 
-
-
+        //将窗口的主容器设置为mainpanel,以及设置大小及状态。
         frame.setContentPane(mainPanel);
-
         frame.setSize(535, 595);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        //when game_state is "HOME", we need to display the homePanel;
-        //when game_state is "PLAYING", we need to display the gamePanel and start the game;
 
         //while中的true可换成参数来控制音乐的停止播放
         new Thread(()->{while(true) {Tetris.playMusic();}
@@ -106,7 +110,6 @@ public class MainFrame {
         homePanel.start.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-             //   Tetris.exit=true;
                 Tetris.initiatLoad=true;
                 Tetris.isExit=true;
                 gamePanel.setGameState(Tetris.PLAYING);
@@ -127,7 +130,6 @@ public class MainFrame {
         difficultyPanel.easy.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //   Tetris.exit=true;
                 Tetris.initiatLoad=true;
                 Tetris.isExit=true;
                 Tetris.flag=false;
@@ -135,14 +137,12 @@ public class MainFrame {
                 cardLayout.next(mainPanel);
                 Tetris.setSpeed(800);
                 new Thread(gamePanel).start();
-                //   a.start();
             }
         });
 
         difficultyPanel.middle.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //   Tetris.exit=true;
                 Tetris.initiatLoad=true;
                 Tetris.isExit=true;
                 Tetris.flag=false;
@@ -150,7 +150,6 @@ public class MainFrame {
                 cardLayout.next(mainPanel);
                 Tetris.setSpeed(400);
                 new Thread(gamePanel).start();
-                //   a.start();
 
             }
         });
@@ -158,7 +157,6 @@ public class MainFrame {
         difficultyPanel.hard.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //   Tetris.exit=true;
                 Tetris.initiatLoad=true;
                 Tetris.isExit=true;
                 Tetris.flag=false;
@@ -166,7 +164,6 @@ public class MainFrame {
                 cardLayout.next(mainPanel);
                 Tetris.setSpeed(250);
                 new Thread(gamePanel).start();
-                //   a.start();
             }
         });
 
@@ -183,13 +180,6 @@ public class MainFrame {
                 gamePanel.setGameState(Tetris.HOME);
                 cardLayout.first(mainPanel);
                 cardLayout.next(mainPanel);
-
-                //Tetris.exit= true;
-               //不能用
-                // Tetris.startInitiation();
-              //  b.start();
-              //  new Thread(gamePanel).start();
-
             }
         });
 
@@ -198,9 +188,6 @@ public class MainFrame {
             public void actionPerformed(ActionEvent e) {
                 gamePanel.setGameState(Tetris.HOME);
                 cardLayout.first(mainPanel);
-                //也许不需要
-              //  new Thread(gamePanel).start();
-              //  a.start();
             }
         });
 
@@ -210,8 +197,6 @@ public class MainFrame {
                 Tetris.exit= false;
                 gamePanel.setGameState(Tetris.HOME);
                 cardLayout.first(mainPanel);
-              // new Thread(gamePanel).start();
-               // a.start();
             }
         });
 
@@ -226,9 +211,6 @@ public class MainFrame {
                 gamePanel.setGameState(Tetris.PLAYING);
                 cardLayout.first(mainPanel);
                 cardLayout.next(mainPanel);
-                // Tetris.startInitiation();
-                //a.start();
-               // new Thread(gamePanel).start();
             }
         });
 
@@ -242,12 +224,6 @@ public class MainFrame {
                 } catch (FileNotFoundException ex) {
                     ex.printStackTrace();
                 }
-                
-                //  System.out.print(gamePanel.getTotalScore());
-                //   String line= String.valueOf(Tetris.getTotalLine());
-                // String score=String.valueOf(Tetris.getTotalScore());
-
-                //    printWriter.println(0+" "+line+" "+score);
                 //注意scanner读入时从读入数字到读入字符串之间要加一个input.nextLine()否则会出错。
                 printWriter.println(Tetris.getSpeed()+" "+Tetris.getTotalLine()+" "+Tetris.getTotalScore());
                 //先将wall中的每个cell的imagelocation保存到文件中。空白的地方返回值是“null”.
@@ -287,8 +263,6 @@ public class MainFrame {
                 Tetris.flag=false;
                 gamePanel.setGameState(Tetris.PLAYING);
                 cardLayout.previous(mainPanel);
-                // Tetris.startInitiation();
-                //a.start();
                 new Thread(gamePanel).start();
             }
         });
@@ -318,7 +292,6 @@ public class MainFrame {
             Tetris.exit= false;
             Tetris.flag=true;
             cardLayout.last(mainPanel);
-            //不能删
             gamePanel.setGameState(Tetris.PLAYING);
 
         }

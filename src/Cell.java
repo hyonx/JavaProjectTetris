@@ -1,8 +1,4 @@
 import java.awt.image.BufferedImage;
-
-import javax.crypto.NullCipher;
-import javax.imageio.ImageIO;
-
 public class Cell {
 
     private int col;

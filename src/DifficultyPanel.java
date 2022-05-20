@@ -1,7 +1,5 @@
 import javax.swing.*;
 
-import javafx.scene.image.Image;
-
 public class DifficultyPanel extends JPanel {
     JButton easy;
     JButton middle;
