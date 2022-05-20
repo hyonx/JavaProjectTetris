@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 
 public class DifficultyPanel extends JPanel {
     JButton easy;
@@ -8,13 +9,17 @@ public class DifficultyPanel extends JPanel {
 
     public DifficultyPanel(){
         this.setLayout(null);
-        easy=new JButton("EASY");
-        middle=new JButton("MIDDLE");
-        hard=new JButton("HARD");
-        easy.setBounds(150*2,200*2,200*2,80*2);
-        middle.setBounds(150*2,300*2,200*2,80*2);
-        hard.setBounds(150*2,400*2,200*2,80*2);
+        easy=new JButton("Easy");
+        middle=new JButton("Middle");
+        hard=new JButton("Hard");
 
+        easy.setBounds(163*2,200*2,200*2,70*2);
+        middle.setBounds(163*2,300*2,200*2,70*2);
+        hard.setBounds(163*2,400*2,200*2,70*2);
+
+        easy.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 30*2));
+        middle.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 30*2));
+        hard.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 30*2));
         
 
         this.add(easy);
@@ -27,4 +32,9 @@ public class DifficultyPanel extends JPanel {
         middle.setVisible(true);
         hard.setVisible(true);
     }
+    public void paint(Graphics g){
+        g.drawImage(Tetris.Difficulty, 0, 0, null);
+        super.paintChildren(g);
+    }
 }
+
