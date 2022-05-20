@@ -51,7 +51,8 @@ public class MainFrame {
 
         //将窗口的主容器设置为mainpanel,以及设置大小及状态。
         frame.setContentPane(mainPanel);
-        frame.setSize(535*2, 595*2);
+        frame.setSize(535*2, 585*2);
+       // frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -119,12 +120,7 @@ public class MainFrame {
                 new Thread(gamePanel).start();
             }
         });
-
-
-
         
-
-
         gameOverPanel.restart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -228,12 +224,19 @@ public class MainFrame {
                 Tetris.flag=true;
                 gamePanel.setGameState(Tetris.PAUSE);
                 cardLayout.next(mainPanel);
-               // a.start();
-              //  new Thread(gamePanel).start();
+              
             }
         });
 
-        videoPanel.restart.addActionListener(new ActionListener() {
+        VideoPanel.OK.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cardLayout.previous(mainPanel);
+
+            }
+        });
+
+        gameOverPanel.restart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Tetris.isExit=true;
@@ -242,23 +245,16 @@ public class MainFrame {
                 cardLayout.first(mainPanel);
                 cardLayout.next(mainPanel);
 
-                //Tetris.exit= true;
-                //不能用
-                // Tetris.startInitiation();
-                //  b.start();
-                //  new Thread(gamePanel).start();
 
             }
         });
 
-        videoPanel.home.addActionListener(new ActionListener() {
+        gameOverPanel.home.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 gamePanel.setGameState(Tetris.HOME);
                 cardLayout.first(mainPanel);
-                //也许不需要
-                //  new Thread(gamePanel).start();
-                //  a.start();
+              
             }
         });
 
@@ -277,8 +273,6 @@ public class MainFrame {
             cardLayout.last(mainPanel);
             videoPanel.showVideo();
             videoPanel.player.setAutoPlay(true);
-
-                    //不能删
             gamePanel.setGameState(Tetris.PLAYING);
 
         }
