@@ -17,14 +17,14 @@ public class Tetris extends JPanel implements Runnable {
 
     @Override
     public void run() {
-        this.wall = new Cell[20][10];
-        //让wall中没有块的地方赋一个不为null的初值，以便之后读入load时方便调用对象赋图片。
-        for(int i=0;i<20;i++){
-            for(int j=0;j<10;j++){
-                wall[i][j] = new Cell(-1,-1);
-            }
-        }
         if (isExit) {
+            this.wall = new Cell[20][10];
+            //让wall中没有块的地方赋一个不为null的初值，以便之后读入load时方便调用对象赋图片。
+            for(int i=0;i<20;i++){
+                for(int j=0;j<10;j++){
+                    wall[i][j] = new Cell(-1,-1);
+                }
+            }
             if (initiatLoad) {
             j = 1;
             this.setGameState(PLAYING);
@@ -122,6 +122,8 @@ public class Tetris extends JPanel implements Runnable {
     public static BufferedImage background;
     public static BufferedImage gameOver;
     public static BufferedImage tetris;
+    public static BufferedImage Pause;
+    public  static  BufferedImage Difficulty;
 
     static {
         try {
@@ -135,6 +137,8 @@ public class Tetris extends JPanel implements Runnable {
             background = ImageIO.read(Tetris.class.getResource("background.png"));
             gameOver = ImageIO.read(Tetris.class.getResource("a.png"));
             tetris = ImageIO.read(Tetris.class.getResource("q.png"));
+            Pause=ImageIO.read(Tetris.class.getResource("pause.png"));
+            Difficulty=ImageIO.read(Tetris.class.getResource("difficulty.png"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -435,7 +439,8 @@ public class Tetris extends JPanel implements Runnable {
         this.setLayout(null);
         pause = new JButton("PAUSE");
         this.add(pause);
-        pause.setBounds(280*2,313*2,250*2,70*2);
+        pause.setBounds(300*2,313*2,200*2,70*2);
+        pause.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20*2));
         this.setVisible(true);
     }
 
@@ -477,13 +482,7 @@ public class Tetris extends JPanel implements Runnable {
                     case KeyEvent.VK_W:
                         handDropAction();
                         break;
-                    case KeyEvent.VK_P:
 
-                        game_state = PAUSE;
-                        break;
-                    case KeyEvent.VK_S:
-                        game_state = PLAYING;
-                        break;
                     case KeyEvent.VK_Q: {
                         j--;
                         if (j >= 0)
@@ -519,27 +518,29 @@ public class Tetris extends JPanel implements Runnable {
     //The start method includes the  main logic of this game.
     public void Start() throws FileNotFoundException {
         while (true) {
-            if(Speed==800||Speed==650||Speed==500||Speed==400){
+
+            if(Speed==800||Speed==700||Speed==550||Speed==410){
                 if(totalLine>5)
-                    Speed=650;
+                    Speed=700;
                 if(totalLine>10)
-                    Speed=500;
+                    Speed=550;
                 if(totalLine>15)
-                    Speed=400;
+                    Speed=410;
                 if(totalLine>20)
                     Speed=300;
             }
 
-            if(Speed==400||Speed==350||Speed==280||Speed==230){
+            if(Speed==400||Speed==350||Speed==280||Speed==240){
                 if(totalLine>5)
                     Speed=350;
                 if(totalLine>10)
                     Speed=280;
                 if(totalLine>15)
-                    Speed=230;
+                    Speed=240;
                 if(totalLine>20)
                     Speed=200;
             }
+
             if(Speed==250||Speed==230||Speed==210||Speed==200){
                 if(totalLine>5)
                     Speed=230;
