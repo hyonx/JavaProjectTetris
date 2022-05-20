@@ -1,4 +1,3 @@
-
 import javax.swing.*;
 import java.awt.*;
 public class HomePanel extends JPanel {
@@ -7,12 +6,16 @@ public class HomePanel extends JPanel {
     JButton rule;
     public HomePanel() {
         this.setLayout(null);
-        start = new JButton("start");
-        load = new JButton("load");
+        start = new JButton("Start");
+        load = new JButton("Load");
         rule = new JButton("Rule");
-        start.setBounds(160*2,220*2,200*2,80*2);
-        load.setBounds(160*2,320*2,200*2,80*2);
-        rule.setBounds(160*2,420*2,200*2,80*2);
+        start.setBounds(163*2,228*2,200*2,80*2);
+        load.setBounds(163*2,330*2,200*2,80*2);
+        rule.setBounds(163*2,432*2,200*2,80*2);
+
+        start.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 30*2));
+        load.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 30*2));
+        rule.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 30*2));
 
         this.add(start);
         this.add(load);
@@ -22,7 +25,7 @@ public class HomePanel extends JPanel {
         rule.setVisible(true);
     }
     public void paint(Graphics g){
-        g.drawImage(Tetris.tetris, -63*2, -10*2, null);
+        g.drawImage(Tetris.tetris, -55*2, -10*2, null);
         super.paintChildren(g);
     }
 }
