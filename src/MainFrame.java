@@ -1,9 +1,7 @@
 import javax.swing.*;
-import javax.swing.event.MouseInputListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -29,6 +27,8 @@ public class MainFrame {
 
         //创建gameover时的panel
         GameOverPanel gameOverPanel = new GameOverPanel();
+        //创建一个用于播放结束视频的panel
+        VideoPanel videoPanel=new VideoPanel();
        
         
 
@@ -47,10 +47,11 @@ public class MainFrame {
         mainPanel.add(gamePanel);
         mainPanel.add(pausePanel);
         mainPanel.add(gameOverPanel);
+        mainPanel.add(videoPanel);
 
         //将窗口的主容器设置为mainpanel,以及设置大小及状态。
         frame.setContentPane(mainPanel);
-        frame.setSize(535, 595);
+        frame.setSize(535*2, 595*2);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -59,54 +60,6 @@ public class MainFrame {
         new Thread(()->{while(true) {Tetris.playMusic();}
         }).start();
 
-        //尝试鼠标监听器的使用
-        homePanel.addMouseListener(new MouseInputListener() {
-
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                // TODO Auto-generated method stub
-                int x = e.getX();
-                int y = e.getY();
-                System.out.println(x+" "+y);
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-                // TODO Auto-generated method stub
-                
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                // TODO Auto-generated method stub
-                
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                // TODO Auto-generated method stub
-                
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                // TODO Auto-generated method stub
-                
-            }
-
-            @Override
-            public void mouseDragged(MouseEvent e) {
-                // TODO Auto-generated method stub
-                
-            }
-
-            @Override
-            public void mouseMoved(MouseEvent e) {
-                // TODO Auto-generated method stub
-                
-            }
-            
-        });
         homePanel.start.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -280,6 +233,35 @@ public class MainFrame {
             }
         });
 
+        videoPanel.restart.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Tetris.isExit=true;
+                Tetris.initiatLoad=true;
+                gamePanel.setGameState(Tetris.HOME);
+                cardLayout.first(mainPanel);
+                cardLayout.next(mainPanel);
+
+                //Tetris.exit= true;
+                //不能用
+                // Tetris.startInitiation();
+                //  b.start();
+                //  new Thread(gamePanel).start();
+
+            }
+        });
+
+        videoPanel.home.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gamePanel.setGameState(Tetris.HOME);
+                cardLayout.first(mainPanel);
+                //也许不需要
+                //  new Thread(gamePanel).start();
+                //  a.start();
+            }
+        });
+
 
         for (double i = 0; i < 1000000000000000.0; i++) {
             while (true) {
@@ -291,7 +273,12 @@ public class MainFrame {
             }
             Tetris.exit= false;
             Tetris.flag=true;
+
             cardLayout.last(mainPanel);
+            videoPanel.showVideo();
+            videoPanel.player.setAutoPlay(true);
+
+                    //不能删
             gamePanel.setGameState(Tetris.PLAYING);
 
         }
