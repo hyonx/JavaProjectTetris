@@ -14,7 +14,7 @@ import javax.swing.*;
 
 public class Tetris extends JPanel implements Runnable {
     //This is the main class, which contains the main method, and other major methods.
-
+   
     @Override
     public void run() {
         if (isExit) {
@@ -123,8 +123,9 @@ public class Tetris extends JPanel implements Runnable {
     public static BufferedImage gameOver;
     public static BufferedImage tetris;
     public static BufferedImage Pause;
-    public  static  BufferedImage Difficulty;
-
+    public static BufferedImage Difficulty;
+    public static BufferedImage pauseButtonImage1;
+    public static BufferedImage pauseButtonImage2;
     static {
         try {
             blue = ImageIO.read(Tetris.class.getResource("blue.png"));
@@ -139,12 +140,22 @@ public class Tetris extends JPanel implements Runnable {
             tetris = ImageIO.read(Tetris.class.getResource("q.png"));
             Pause=ImageIO.read(Tetris.class.getResource("pause.png"));
             Difficulty=ImageIO.read(Tetris.class.getResource("difficulty.png"));
+            pauseButtonImage1 = ImageIO.read(Tetris.class.getResource("pauseButtonImage1.png"));
+            pauseButtonImage2 = ImageIO.read(Tetris.class.getResource("pauseButtonImage2.png"));
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-
+    JLabel pause;
+    public Tetris(){
+        this.setLayout(null);
+        pause = new JLabel();
+        this.add(pause);
+        pause.setBounds(300*2,313*2,200*2,70*2);
+        pause.setVisible(true);
+        this.setVisible(true);
+    }
     public void paint(Graphics g) {
         super.paint(g);
         g.drawImage(background, 0, 0, null);
@@ -155,7 +166,7 @@ public class Tetris extends JPanel implements Runnable {
         paintScore(g);
         paintState(g);
         g.translate(-15*2, -15*2);
-        super.paintChildren(g);
+        paintPauselabel(g);
     }
 
     public void paintWall(Graphics a) {
@@ -199,7 +210,19 @@ public class Tetris extends JPanel implements Runnable {
         g.drawString("SCORES:" + totalScore, 285*2, 160*2);
         g.drawString("LINES:" + totalLine, 285*2, 215*2);
     }
-
+    
+    //用于控制游戏界面pause按钮的重新绘制。移入pause，Boolean设为true，移出设为false。再在paint（）方法里加以判断。
+    private static boolean director=false;
+    public  void setdirector(boolean bool){
+        director = bool;
+    }
+    public void paintPauselabel(Graphics g){
+        if(director){
+            g.drawImage(pauseButtonImage2, 300*2+20,313*2+20, null);
+        }
+        else{g.drawImage(pauseButtonImage1, 300*2+20,313*2+20, null);
+        }
+    }
     public static int getTotalLine() {
         return totalLine;
     }
@@ -433,16 +456,8 @@ public class Tetris extends JPanel implements Runnable {
         }
     }
 
-    static JButton pause;
-
-    public Tetris() throws FileNotFoundException {
-        this.setLayout(null);
-        pause = new JButton("PAUSE");
-        this.add(pause);
-        pause.setBounds(300*2,313*2,200*2,70*2);
-        pause.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20*2));
-        this.setVisible(true);
-    }
+   
+    
 
     //速度池。
     private static int Speed = 400;
@@ -764,4 +779,8 @@ public class Tetris extends JPanel implements Runnable {
             e.printStackTrace();
         }
     }
-            }
+    public void setImage(JLabel b,ImageIcon i){
+        i.setImage(i.getImage().getScaledInstance(380,140,1));
+        b.setIcon(i);
+    }
+}

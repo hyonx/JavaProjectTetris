@@ -1,7 +1,11 @@
 import javax.swing.*;
+import javax.swing.event.MouseInputAdapter;
+import javax.swing.event.MouseInputListener;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -61,18 +65,31 @@ public class MainFrame {
         new Thread(()->{while(true) {Tetris.playMusic();}
         }).start();
 
-        homePanel.start.addActionListener(new ActionListener() {
+        homePanel.startLabel.addMouseListener(new MouseInputAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseClicked(MouseEvent e) {
                 Tetris.initiatLoad=true;
                 Tetris.isExit=true;
                 gamePanel.setGameState(Tetris.PLAYING);
                 cardLayout.next(mainPanel);
             }
-        });
-        homePanel.load.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseEntered(MouseEvent e) {
+               homePanel.setImage(homePanel.startLabel, HomePanel.startimageEntered);
+                homePanel.repaint();
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                homePanel.setImage(homePanel.startLabel, HomePanel.startimage);
+                homePanel.repaint();
+            }
+
+        });
+       
+        homePanel.loadLabel.addMouseListener(new MouseInputAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
                 Tetris.isExit = true;
                 Tetris.initiatLoad = false;
                 Tetris.flag=false;
@@ -80,10 +97,22 @@ public class MainFrame {
                 cardLayout.next(mainPanel);
                 new Thread(gamePanel).start();
             }
-        });
-        difficultyPanel.easy.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseEntered(MouseEvent e) {
+                homePanel.setImage(homePanel.loadLabel, HomePanel.loadLabelimageEntered);
+                homePanel.repaint();
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+               homePanel.setImage(homePanel.loadLabel, HomePanel.loadLabelimage);
+               homePanel.repaint();
+            }
+        });
+        
+        difficultyPanel.easy.addMouseListener(new MouseInputAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
                 Tetris.initiatLoad=true;
                 Tetris.isExit=true;
                 Tetris.flag=false;
@@ -92,67 +121,172 @@ public class MainFrame {
                 Tetris.setSpeed(800);
                 new Thread(gamePanel).start();
             }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                difficultyPanel.setImage(difficultyPanel.easy, difficultyPanel.easyImageEntered);
+                difficultyPanel.repaint();
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                difficultyPanel.setImage(difficultyPanel.easy, difficultyPanel.easyImage);
+                difficultyPanel.repaint();
+            }
+
         });
 
-        difficultyPanel.middle.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Tetris.initiatLoad=true;
-                Tetris.isExit=true;
-                Tetris.flag=false;
-                gamePanel.setGameState(0);
-                cardLayout.next(mainPanel);
-                Tetris.setSpeed(400);
+            difficultyPanel.middle.addMouseListener(new MouseInputAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    Tetris.initiatLoad=true;
+                    Tetris.isExit=true;
+                    Tetris.flag=false;
+                    gamePanel.setGameState(0);
+                    cardLayout.next(mainPanel);
+                    Tetris.setSpeed(400);
                 new Thread(gamePanel).start();
+                }
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    difficultyPanel.setImage(difficultyPanel.middle, difficultyPanel.middleImageEntered);
+                    difficultyPanel.repaint();
+                }
+    
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    difficultyPanel.setImage(difficultyPanel.middle, difficultyPanel.middleImage);
+                    difficultyPanel.repaint();
+                }
+            });
 
+        
+        difficultyPanel.hard.addMouseListener(new MouseInputAdapter() {
+            @Override
+                public void mouseClicked(MouseEvent e) {
+                    Tetris.initiatLoad=true;
+                    Tetris.isExit=true;
+                    Tetris.flag=false;
+                    gamePanel.setGameState(0);
+                    cardLayout.next(mainPanel);
+                    Tetris.setSpeed(250);
+                    new Thread(gamePanel).start();
+                }
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    difficultyPanel.setImage(difficultyPanel.hard, difficultyPanel.hardImageEntered);
+                    difficultyPanel.repaint();
+                }
+    
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    difficultyPanel.setImage(difficultyPanel.hard, difficultyPanel.hardImage);
+                    difficultyPanel.repaint();
+                }
+        });
+        
+        // gameOverPanel.restart.addActionListener(new ActionListener() {
+        //     @Override
+        //     public void actionPerformed(ActionEvent e) {
+        //         Tetris.isExit=true;
+        //         Tetris.initiatLoad=true;
+        //         gamePanel.setGameState(Tetris.HOME);
+        //         cardLayout.first(mainPanel);
+        //         cardLayout.next(mainPanel);
+        //     }
+        // });
+        gameOverPanel.restart.addMouseListener(new MouseInputAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Tetris.isExit=true;
+                Tetris.initiatLoad=true;
+                gamePanel.setGameState(Tetris.HOME);
+                cardLayout.first(mainPanel);
+                cardLayout.next(mainPanel);
+            }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+               gameOverPanel.setImage(gameOverPanel.restart, GameOverPanel.restartImageEntered);
+                gameOverPanel.repaint();
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                difficultyPanel.setImage(gameOverPanel.restart, GameOverPanel.restartImage);
+                gameOverPanel.repaint();
             }
         });
 
-        difficultyPanel.hard.addActionListener(new ActionListener() {
+        // gameOverPanel.home.addActionListener(new ActionListener() {
+        //     @Override
+        //     public void actionPerformed(ActionEvent e) {
+        //         gamePanel.setGameState(Tetris.HOME);
+        //         cardLayout.first(mainPanel);
+        //     }
+        // });
+        gameOverPanel.home.addMouseListener(new MouseInputAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                Tetris.initiatLoad=true;
-                Tetris.isExit=true;
-                Tetris.flag=false;
-                gamePanel.setGameState(0);
-                cardLayout.next(mainPanel);
-                Tetris.setSpeed(250);
-                new Thread(gamePanel).start();
+            public void mouseClicked(MouseEvent e) {
+                gamePanel.setGameState(Tetris.HOME);
+                cardLayout.first(mainPanel);
+            }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+               gameOverPanel.setImage(gameOverPanel.home, GameOverPanel.homeImageEntered);
+                gameOverPanel.repaint();
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                difficultyPanel.setImage(gameOverPanel.home, GameOverPanel.homeImage);
+                gameOverPanel.repaint();
             }
         });
         
-        gameOverPanel.restart.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Tetris.isExit=true;
-                Tetris.initiatLoad=true;
-                gamePanel.setGameState(Tetris.HOME);
-                cardLayout.first(mainPanel);
-                cardLayout.next(mainPanel);
-            }
-        });
 
-        gameOverPanel.home.addActionListener(new ActionListener() {
+        // pausePanel.homeAgain.addActionListener(new ActionListener() {
+        //     @Override
+        //     public void actionPerformed(ActionEvent e) {
+        //         Tetris.exit= false;
+        //         gamePanel.setGameState(Tetris.HOME);
+        //         cardLayout.first(mainPanel);
+        //     }
+        // });
+        pausePanel.homeAgain.addMouseListener(new MouseInputAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                gamePanel.setGameState(Tetris.HOME);
-                cardLayout.first(mainPanel);
-            }
-        });
-
-        pausePanel.homeAgain.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseClicked(MouseEvent e) {
                 Tetris.exit= false;
                 gamePanel.setGameState(Tetris.HOME);
                 cardLayout.first(mainPanel);
             }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            pausePanel.setImage(pausePanel.homeAgain, pausePanel.homeAgainImageEntered);
+            pausePanel.repaint();
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            pausePanel.setImage(pausePanel.homeAgain, pausePanel.homeAgainImage);
+            pausePanel.repaint();
+            }
         });
 
-        //在pause界面重新开始一个新的游戏。
-        pausePanel.startAgain.addActionListener(new ActionListener() {
+        // //在pause界面重新开始一个新的游戏。
+        // pausePanel.startAgain.addActionListener(new ActionListener() {
+        //     @Override
+        //     public void actionPerformed(ActionEvent e) {
+        //         Tetris.initiatLoad=true;
+        //         Tetris.exit= false;
+        //         Tetris.isExit=true;
+        //         Tetris.flag=true;
+        //         gamePanel.setGameState(Tetris.PLAYING);
+        //         cardLayout.first(mainPanel);
+        //         cardLayout.next(mainPanel);
+        //     }
+        // });
+        pausePanel.startAgain.addMouseListener(new MouseInputAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseClicked(MouseEvent e) {
                 Tetris.initiatLoad=true;
                 Tetris.exit= false;
                 Tetris.isExit=true;
@@ -161,12 +295,63 @@ public class MainFrame {
                 cardLayout.first(mainPanel);
                 cardLayout.next(mainPanel);
             }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            pausePanel.setImage(pausePanel.startAgain, pausePanel.startAgainImageEntered);
+            pausePanel.repaint();
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            pausePanel.setImage(pausePanel.startAgain, pausePanel.startAgainImage);
+            pausePanel.repaint();
+            }
         });
 
         File record=new File("records.txt");
-        pausePanel.save.addActionListener(new ActionListener() {
+        // pausePanel.save.addActionListener(new ActionListener() {
+        //     @Override
+        //     public void actionPerformed(ActionEvent e) {
+        //         PrintWriter printWriter= null;
+        //         try {
+        //             printWriter = new PrintWriter(record);
+        //         } catch (FileNotFoundException ex) {
+        //             ex.printStackTrace();
+        //         }
+        //         //注意scanner读入时从读入数字到读入字符串之间要加一个input.nextLine()否则会出错。
+        //         printWriter.println(Tetris.getSpeed()+" "+Tetris.getTotalLine()+" "+Tetris.getTotalScore());
+        //         //先将wall中的每个cell的imagelocation保存到文件中。空白的地方返回值是“null”.
+        //         for(Cell[] c:gamePanel.wall){
+        //             for(Cell d:c){
+        //                 if(d.getCol()==-1&&d.getRow()==-1){//d的rowcol如果为-1则表示该处没有俄罗斯方块。
+        //                     printWriter.println("null");
+        //                 }
+        //                 if(d.getCol()!=-1&&d.getRow()!=-1){
+        //                     printWriter.println(d.getImageLocation());
+        //                 }
+        //             }
+        //         }
+        //         //再保存currentOne的方块类型和行列号和图片地址，以及nextOne的方块类型和行列号和图片地址。
+        //         //每个cell的行列号保存完之后紧接着是图片地址。先列后行。
+        //         printWriter.println(gamePanel.currentOne.getTetrominoType());
+        //         for(Cell c:gamePanel.currentOne.cells){
+        //             printWriter.println(c.getCol());
+        //             printWriter.println(c.getRow());
+        //             printWriter.println(c.getImageLocation());
+        //         }
+        //         printWriter.println(gamePanel.nextOne.getTetrominoType());
+        //         for(Cell c:gamePanel.nextOne.cells){
+        //             printWriter.println(c.getCol());
+        //             printWriter.println(c.getRow());
+        //             printWriter.println(c.getImageLocation());
+        //         }
+        //         printWriter.close();
+        //     }
+        // });
+
+        pausePanel.save.addMouseListener(new MouseInputAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseClicked(MouseEvent e) {
                 PrintWriter printWriter= null;
                 try {
                     printWriter = new PrintWriter(record);
@@ -202,11 +387,33 @@ public class MainFrame {
                 }
                 printWriter.close();
             }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            pausePanel.setImage(pausePanel.save, pausePanel.saveImageEntered);
+            pausePanel.repaint();
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            pausePanel.setImage(pausePanel.save, pausePanel.saveImage);
+            pausePanel.repaint();
+            }
         });
 
-        pausePanel.Continue.addActionListener(new ActionListener() {
+        // pausePanel.Continue.addActionListener(new ActionListener() {
+        //     @Override
+        //     public void actionPerformed(ActionEvent e) {
+        //         Tetris.exit= false;
+        //         Tetris.isExit=false;
+        //         Tetris.flag=false;
+        //         gamePanel.setGameState(Tetris.PLAYING);
+        //         cardLayout.previous(mainPanel);
+        //         new Thread(gamePanel).start();
+        //     }
+        // });
+        pausePanel.Continue.addMouseListener(new MouseInputAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseClicked(MouseEvent e) {
                 Tetris.exit= false;
                 Tetris.isExit=false;
                 Tetris.flag=false;
@@ -214,50 +421,72 @@ public class MainFrame {
                 cardLayout.previous(mainPanel);
                 new Thread(gamePanel).start();
             }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            pausePanel.setImage(pausePanel.Continue, pausePanel.ContinueImageEntered);
+            pausePanel.repaint();
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            pausePanel.setImage(pausePanel.Continue, pausePanel.ContinueImage);
+            pausePanel.repaint();
+            }
         });
 
 
-        Tetris.pause.addActionListener(new ActionListener() {
+        // Tetris.pause.addActionListener(new ActionListener() {
+        //     @Override
+        //     public void actionPerformed(ActionEvent e) {
+        //         Tetris.exit= false;
+        //         Tetris.flag=true;
+        //         gamePanel.setGameState(Tetris.PAUSE);
+        //         cardLayout.next(mainPanel);
+              
+        //     }
+        // });
+        gamePanel.pause.addMouseListener(new MouseInputAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseClicked(MouseEvent e) {
                 Tetris.exit= false;
                 Tetris.flag=true;
                 gamePanel.setGameState(Tetris.PAUSE);
                 cardLayout.next(mainPanel);
-              
+            }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+               gamePanel.setdirector(true);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                gamePanel.setdirector(false);
             }
         });
+        // VideoPanel.OK.addActionListener(new ActionListener() {
+        //     @Override
+        //     public void actionPerformed(ActionEvent e) {
+        //         cardLayout.previous(mainPanel);
 
-        VideoPanel.OK.addActionListener(new ActionListener() {
+        //     }
+        // });
+        videoPanel.OK.addMouseListener(new MouseInputAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseClicked(MouseEvent e) {
                 cardLayout.previous(mainPanel);
-
             }
-        });
-
-        gameOverPanel.restart.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                Tetris.isExit=true;
-                Tetris.initiatLoad=true;
-                gamePanel.setGameState(Tetris.HOME);
-                cardLayout.first(mainPanel);
-                cardLayout.next(mainPanel);
-
-
+            public void mouseEntered(MouseEvent e) {
+            videoPanel.setImage(VideoPanel.OK, VideoPanel.OKImage);
+            pausePanel.repaint();
             }
-        });
 
-        gameOverPanel.home.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                gamePanel.setGameState(Tetris.HOME);
-                cardLayout.first(mainPanel);
-              
+            public void mouseExited(MouseEvent e) {
+            pausePanel.setImage(videoPanel.OK, VideoPanel.OKImage);
+            pausePanel.repaint();
             }
         });
-
 
         for (double i = 0; i < 1000000000000000.0; i++) {
             while (true) {

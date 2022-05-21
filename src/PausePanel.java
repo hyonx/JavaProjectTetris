@@ -9,16 +9,28 @@ import java.awt.*;
 import java.io.File;
 
 public class PausePanel extends JPanel{
-    JButton startAgain;
-    JButton homeAgain;
-    JButton save;
-    JButton Continue;
-    
-    public static ImageIcon backgroundImage;
-
+    JLabel startAgain;
+    JLabel homeAgain;
+    JLabel save;
+    JLabel Continue;
+    public static ImageIcon startAgainImage;
+    public static ImageIcon startAgainImageEntered;
+    public static ImageIcon homeAgainImage;
+    public static ImageIcon homeAgainImageEntered;
+    public static ImageIcon saveImage;
+    public static ImageIcon saveImageEntered;
+    public static ImageIcon ContinueImage;
+    public static ImageIcon ContinueImageEntered;
     static {
         try {
-            backgroundImage = new ImageIcon("src/科技背景.png");
+            startAgainImage = new ImageIcon("src/startimage.png");
+            startAgainImageEntered = new ImageIcon("src/startimageEntered.png");
+            homeAgainImage = new ImageIcon("src/homeAgainImage.png");
+            homeAgainImageEntered = new ImageIcon("src/homeAgainImageEntered.png");
+            saveImage = new ImageIcon("src/saveImage.png");
+            saveImageEntered = new ImageIcon("src/saveImageEntered.png");
+            ContinueImage = new ImageIcon("src/ContinueImage.png");
+            ContinueImageEntered = new ImageIcon("src/ContinueImageEntered.png");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -26,20 +38,28 @@ public class PausePanel extends JPanel{
 
     public PausePanel(){
         this.setLayout(null);
-        startAgain=new JButton("Restart");
-        homeAgain=new JButton("Home");
-        save=new JButton("Save");
-        Continue=new JButton("Continue");
+
+        startAgain=new JLabel();
+        homeAgain=new JLabel();
+        save=new JLabel();
+        Continue=new JLabel();
 
         startAgain.setBounds(163*2,163*2,200*2,65*2);
         Continue.setBounds(163*2,252*2,200*2,65*2);
         save.setBounds(163*2,341*2,200*2,65*2);
         homeAgain.setBounds(163*2,430*2,200*2,65*2);
 
-        startAgain.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 22*2));
-        Continue.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 22*2));
-        save.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 22*2));
-        homeAgain.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 22*2));
+        startAgainImage.setImage(startAgainImage.getImage().getScaledInstance(380,140,1));
+        startAgain.setIcon(startAgainImage);
+
+        homeAgainImage.setImage(homeAgainImage.getImage().getScaledInstance(380,140,1));
+        homeAgain.setIcon(homeAgainImage);
+
+        saveImage.setImage(saveImage.getImage().getScaledInstance(380,140,1));
+        save.setIcon(saveImage);
+
+        ContinueImage.setImage(ContinueImage.getImage().getScaledInstance(380,140,1));
+        Continue.setIcon(ContinueImage);
 
         this.add(Continue);
         this.add(startAgain);
@@ -55,5 +75,9 @@ public class PausePanel extends JPanel{
     public void paint(Graphics g){
         g.drawImage(Tetris.Pause, 0, -80, null);
         super.paintChildren(g);
+    }
+    public void setImage(JLabel b,ImageIcon i){
+        i.setImage(i.getImage().getScaledInstance(380,140,1));
+        b.setIcon(i);
     }
 }

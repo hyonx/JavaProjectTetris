@@ -16,22 +16,35 @@ import java.io.File;
 public class VideoPanel extends JFXPanel {
 
     public MediaPlayer player;
-    static JButton OK;
+    static JLabel OK;
+    public  static ImageIcon OKImage;
+    public  static ImageIcon OKImageEntered;
+    static{
+        try{
+            OKImage = new ImageIcon("src/OKImage.png");
+            OKImageEntered = new ImageIcon("src/OKImageEntered");
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 
+    
 
 
     public VideoPanel() {
         this.setLayout(null);
 
-        OK = new JButton("OK");
+        OK = new JLabel();
 
-        OK.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 22*2));
+        OKImage.setImage(OKImage.getImage().getScaledInstance(380,140,1));
+        OK.setIcon(OKImage);
+
 
         OK.setBounds(198*2, 380*2, 120*2, 50*2);
 
-        OK.setVisible(true);
-
         this.add(OK);
+
+        OK.setVisible(true);
     }
 
     public void showVideo () {
@@ -46,5 +59,8 @@ public class VideoPanel extends JFXPanel {
 
     }
 
-
+    public void setImage(JLabel b,ImageIcon i){
+        i.setImage(i.getImage().getScaledInstance(380,140,1));
+        b.setIcon(i);
+    }
 }
