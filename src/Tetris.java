@@ -634,8 +634,8 @@ public class Tetris extends JPanel implements Runnable {
     public static void playMusic() {
         try {
             //创建两个AudioInputStream并导入音乐
-            AudioInputStream music = AudioSystem.getAudioInputStream(new File("src/lobby.wav"));
-            AudioInputStream Music = AudioSystem.getAudioInputStream(new File("src/h.wav"));
+            AudioInputStream music = AudioSystem.getAudioInputStream(new File("src/h.wav"));
+            AudioInputStream Music = AudioSystem.getAudioInputStream(new File("src/visions.wav"));
 
             AudioFormat format = music.getFormat();
             final SourceDataLine line;
