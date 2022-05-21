@@ -66,7 +66,7 @@ public class Tetris extends JPanel implements Runnable {
             background = ImageIO.read(Tetris.class.getResource("background.png"));
             gameOver = ImageIO.read(Tetris.class.getResource("a.png"));
             tetris = ImageIO.read(Tetris.class.getResource("q.png"));
-            Pause=ImageIO.read(Tetris.class.getResource("pauseBackground.png"));
+            Pause=ImageIO.read(Tetris.class.getResource("pause.png"));
             pauseButtonImage1 = ImageIO.read(Tetris.class.getResource("pauseButtonImage1.png"));
             pauseButtonImage2 = ImageIO.read(Tetris.class.getResource("pauseButtonImage2.png"));
             Rule = ImageIO.read(Tetris.class.getResource("rule.png"));
