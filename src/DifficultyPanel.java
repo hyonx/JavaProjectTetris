@@ -17,12 +17,12 @@ public class DifficultyPanel extends JPanel {
 
     static{
         try{
-            easyImage = new ImageIcon("src/startimage.png");
-            easyImageEntered = new ImageIcon("src/startimageEntered.png");
-            middleImage = new ImageIcon("src/startimage.png");
-            middleImageEntered = new ImageIcon("src/startimageEntered.png");
-            hardImage = new ImageIcon("src/startimage.png");
-            hardImageEntered = new ImageIcon("src/startimageEntered.png");
+            easyImage = new ImageIcon("src/easyImage.png");
+            easyImageEntered = new ImageIcon("src/easyImageEntered.png");
+            middleImage = new ImageIcon("src/middleImage.png");
+            middleImageEntered = new ImageIcon("src/middleImageEntered.png");
+            hardImage = new ImageIcon("src/hardImage.png");
+            hardImageEntered = new ImageIcon("src/hardImageEntered.png");
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -61,7 +61,7 @@ public class DifficultyPanel extends JPanel {
         hard.setVisible(true);
     }
     public void paint(Graphics g){
-        g.drawImage(Tetris.Difficulty, 0, 0, null);
+        g.drawImage(Tetris.tetris, -55*2, -10*2, null);
         super.paintChildren(g);
     }
     public void setImage(JLabel b,ImageIcon i){

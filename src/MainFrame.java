@@ -147,14 +147,14 @@ public class MainFrame {
             }
             @Override
             public void mouseEntered(MouseEvent e) {
-                homePanel.setImage(homePanel.loadLabel, HomePanel.loadLabelimageEntered);
-                homePanel.repaint();
+                rulePanel.setImage(rulePanel.ok, rulePanel.okImageEntered);
+                rulePanel.repaint();
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                homePanel.setImage(homePanel.loadLabel, HomePanel.loadLabelimage);
-                homePanel.repaint();
+                rulePanel.setImage(rulePanel.ok, rulePanel.okImage);
+                rulePanel.repaint();
             }
         });
 
@@ -361,46 +361,7 @@ public class MainFrame {
         });
 
         File record=new File("records.txt");
-        // pausePanel.save.addActionListener(new ActionListener() {
-        //     @Override
-        //     public void actionPerformed(ActionEvent e) {
-        //         PrintWriter printWriter= null;
-        //         try {
-        //             printWriter = new PrintWriter(record);
-        //         } catch (FileNotFoundException ex) {
-        //             ex.printStackTrace();
-        //         }
-        //         //注意scanner读入时从读入数字到读入字符串之间要加一个input.nextLine()否则会出错。
-        //         printWriter.println(Tetris.getSpeed()+" "+Tetris.getTotalLine()+" "+Tetris.getTotalScore());
-        //         //先将wall中的每个cell的imagelocation保存到文件中。空白的地方返回值是“null”.
-        //         for(Cell[] c:gamePanel.wall){
-        //             for(Cell d:c){
-        //                 if(d.getCol()==-1&&d.getRow()==-1){//d的rowcol如果为-1则表示该处没有俄罗斯方块。
-        //                     printWriter.println("null");
-        //                 }
-        //                 if(d.getCol()!=-1&&d.getRow()!=-1){
-        //                     printWriter.println(d.getImageLocation());
-        //                 }
-        //             }
-        //         }
-        //         //再保存currentOne的方块类型和行列号和图片地址，以及nextOne的方块类型和行列号和图片地址。
-        //         //每个cell的行列号保存完之后紧接着是图片地址。先列后行。
-        //         printWriter.println(gamePanel.currentOne.getTetrominoType());
-        //         for(Cell c:gamePanel.currentOne.cells){
-        //             printWriter.println(c.getCol());
-        //             printWriter.println(c.getRow());
-        //             printWriter.println(c.getImageLocation());
-        //         }
-        //         printWriter.println(gamePanel.nextOne.getTetrominoType());
-        //         for(Cell c:gamePanel.nextOne.cells){
-        //             printWriter.println(c.getCol());
-        //             printWriter.println(c.getRow());
-        //             printWriter.println(c.getImageLocation());
-        //         }
-        //         printWriter.close();
-        //     }
-        // });
-
+        
         pausePanel.save.addMouseListener(new MouseInputAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -452,17 +413,7 @@ public class MainFrame {
             }
         });
 
-        // pausePanel.Continue.addActionListener(new ActionListener() {
-        //     @Override
-        //     public void actionPerformed(ActionEvent e) {
-        //         Tetris.exit= false;
-        //         Tetris.isExit=false;
-        //         Tetris.flag=false;
-        //         gamePanel.setGameState(Tetris.PLAYING);
-        //         cardLayout.previous(mainPanel);
-        //         new Thread(gamePanel).start();
-        //     }
-        // });
+        
         pausePanel.Continue.addMouseListener(new MouseInputAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -486,17 +437,6 @@ public class MainFrame {
             }
         });
 
-
-        // Tetris.pause.addActionListener(new ActionListener() {
-        //     @Override
-        //     public void actionPerformed(ActionEvent e) {
-        //         Tetris.exit= false;
-        //         Tetris.flag=true;
-        //         gamePanel.setGameState(Tetris.PAUSE);
-        //         cardLayout.next(mainPanel);
-              
-        //     }
-        // });
         gamePanel.pause.addMouseListener(new MouseInputAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -515,13 +455,7 @@ public class MainFrame {
                 gamePanel.setdirector(false);
             }
         });
-        // VideoPanel.OK.addActionListener(new ActionListener() {
-        //     @Override
-        //     public void actionPerformed(ActionEvent e) {
-        //         cardLayout.previous(mainPanel);
-
-        //     }
-        // });
+    
         videoPanel.OK.addMouseListener(new MouseInputAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {

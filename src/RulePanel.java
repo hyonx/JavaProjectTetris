@@ -4,11 +4,12 @@ import java.awt.*;
 public class RulePanel extends JPanel {
     static JLabel ok;
     public  static ImageIcon okImage;
-
+    public static ImageIcon okImageEntered;
 
     static{
         try{
-            okImage = new ImageIcon("src/OKImageEntered.png");
+            okImage = new ImageIcon("src/okImage.png");
+            okImageEntered = new ImageIcon("src/okImageEntered.png");
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -35,5 +36,9 @@ public class RulePanel extends JPanel {
 
      super.paintChildren(g);
  }
+ public void setImage(JLabel b,ImageIcon i){
+    i.setImage(i.getImage().getScaledInstance(380,140,1));
+    b.setIcon(i);
+}
 
 }

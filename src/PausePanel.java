@@ -23,8 +23,8 @@ public class PausePanel extends JPanel{
     public static ImageIcon ContinueImageEntered;
     static {
         try {
-            startAgainImage = new ImageIcon("src/startimage.png");
-            startAgainImageEntered = new ImageIcon("src/startimageEntered.png");
+            startAgainImage = new ImageIcon("src/startAgainImage.png");
+            startAgainImageEntered = new ImageIcon("src/startAgainImageEntered.png");
             homeAgainImage = new ImageIcon("src/homeAgainImage.png");
             homeAgainImageEntered = new ImageIcon("src/homeAgainImageEntered.png");
             saveImage = new ImageIcon("src/saveImage.png");
@@ -44,10 +44,10 @@ public class PausePanel extends JPanel{
         save=new JLabel();
         Continue=new JLabel();
 
-        startAgain.setBounds(163*2,163*2,200*2,65*2);
-        Continue.setBounds(163*2,252*2,200*2,65*2);
-        save.setBounds(163*2,341*2,200*2,65*2);
-        homeAgain.setBounds(163*2,430*2,200*2,65*2);
+        startAgain.setBounds(163*2,163*2,200*2,75*2);
+        Continue.setBounds(163*2,252*2,200*2,75*2);
+        save.setBounds(163*2,341*2,200*2,75*2);
+        homeAgain.setBounds(163*2,430*2,200*2,75*2);
 
         startAgainImage.setImage(startAgainImage.getImage().getScaledInstance(380,140,1));
         startAgain.setIcon(startAgainImage);

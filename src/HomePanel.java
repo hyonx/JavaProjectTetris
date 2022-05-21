@@ -19,10 +19,10 @@ public class HomePanel extends JPanel {
         try{
             startimage = new ImageIcon("src/startimage.png");
             startimageEntered = new ImageIcon("src/startimageEntered.png");
-            loadLabelimage = new ImageIcon("src/startimage.png");
-            loadLabelimageEntered = new ImageIcon("src/startimageEntered.png");
-            ruleimage = new ImageIcon("src/startimage.png");
-            ruleimageEntered = new ImageIcon("src/startimageEntered.png");
+            loadLabelimage = new ImageIcon("src/loadLabelimage.png");
+            loadLabelimageEntered = new ImageIcon("src/loadLabelimageEntered.png");
+            ruleimage = new ImageIcon("src/ruleimage.png");
+            ruleimageEntered = new ImageIcon("src/ruleimageEntered.png");
         }catch(Exception e){
             e.printStackTrace();
         }
