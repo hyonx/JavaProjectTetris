@@ -137,7 +137,7 @@ public class MainFrame {
             }
         });
 
-        rulePanel.ok.addMouseListener(new MouseInputAdapter() {
+           rulePanel.ok.addMouseListener(new MouseInputAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 Tetris.initiatLoad=true;
@@ -145,18 +145,8 @@ public class MainFrame {
                 gamePanel.setGameState(Tetris.PLAYING);
                 cardLayout.previous(mainPanel);
             }
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                homePanel.setImage(homePanel.loadLabel, HomePanel.loadLabelimageEntered);
-                homePanel.repaint();
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                homePanel.setImage(homePanel.loadLabel, HomePanel.loadLabelimage);
-                homePanel.repaint();
-            }
         });
+
 
 
 
