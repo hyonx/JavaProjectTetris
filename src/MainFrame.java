@@ -535,7 +535,7 @@ public class MainFrame {
 
             @Override
             public void mouseExited(MouseEvent e) {
-            pausePanel.setImage(videoPanel.OK, VideoPanel.OKImage);
+            pausePanel.setImage(videoPanel.OK, VideoPanel.OKImageEntered);
             pausePanel.repaint();
             }
         });
