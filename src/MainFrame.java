@@ -137,7 +137,7 @@ public class MainFrame {
             }
         });
 
-        rulePanel.ok.addMouseListener(new MouseInputAdapter() {
+           rulePanel.ok.addMouseListener(new MouseInputAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 Tetris.initiatLoad=true;
@@ -157,6 +157,7 @@ public class MainFrame {
                 rulePanel.repaint();
             }
         });
+
 
 
 
