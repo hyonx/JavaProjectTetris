@@ -18,7 +18,7 @@ public class PausePanel extends JPanel{
     public static ImageIcon ContinueImage;
     public static ImageIcon ContinueImageEntered;
 
-    //读入ImageIcon
+    //读入ImageIcon值
     static {
         try {
             startAgainImage = new ImageIcon("src/startAgainImage.png");
@@ -45,8 +45,8 @@ public class PausePanel extends JPanel{
         Continue=new JLabel();
 
         //设定label大小 位置
-        Continue.setBounds(163*2,163*2,200*2,75*2);
-        startAgain.setBounds(163*2,252*2,200*2,75*2);
+        startAgain.setBounds(163*2,163*2,200*2,75*2);
+        Continue.setBounds(163*2,252*2,200*2,75*2);
         save.setBounds(163*2,341*2,200*2,75*2);
         homeAgain.setBounds(163*2,430*2,200*2,75*2);
 
@@ -75,7 +75,7 @@ public class PausePanel extends JPanel{
 
     //绘制背景
     public void paint(Graphics g){
-        g.drawImage(Tetris.Pause, 0, 0, null);
+        g.drawImage(Tetris.Pause, 0, -80, null);
         super.paintChildren(g);
     }
 
