@@ -17,12 +17,12 @@ public class DifficultyPanel extends JPanel {
     //读入ImageIcon值
     static{
         try{
-            easyImage = new ImageIcon("src/easyImage.png");
-            easyImageEntered = new ImageIcon("src/easyImageEntered.png");
-            middleImage = new ImageIcon("src/middleImage.png");
-            middleImageEntered = new ImageIcon("src/middleImageEntered.png");
-            hardImage = new ImageIcon("src/hardImage.png");
-            hardImageEntered = new ImageIcon("src/hardImageEntered.png");
+            easyImage = new ImageIcon(DifficultyPanel.class.getResource("easyImage.png"));
+            easyImageEntered = new ImageIcon(DifficultyPanel.class.getResource("easyImageEntered.png"));
+            middleImage = new ImageIcon(DifficultyPanel.class.getResource("middleImage.png"));
+            middleImageEntered = new ImageIcon(DifficultyPanel.class.getResource("middleImageEntered.png"));
+            hardImage = new ImageIcon(DifficultyPanel.class.getResource("hardImage.png"));
+            hardImageEntered = new ImageIcon(DifficultyPanel.class.getResource("hardImageEntered.png"));
         }catch(Exception e){
             e.printStackTrace();
         }

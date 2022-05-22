@@ -18,7 +18,7 @@ public class VideoPanel extends JFXPanel {
     //读入ImageIcon值
     static{
         try{
-            OKImageEntered = new ImageIcon("src/OKImageEntered.png");
+            OKImageEntered = new ImageIcon(VideoPanel.class.getResource("OKImageEntered.png"));
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -51,8 +51,8 @@ public class VideoPanel extends JFXPanel {
     }
     //创建showVideo方法 以便在mainFrame里面调用 从而展示结束视频
     public void showVideo () {
-        File videoSource = new File("src/overvideo.mp4");
-        Media m = new Media(videoSource.toURI().toString());
+        //File videoSource = new File("src/overvideo.mp4");
+        Media m = new Media(VideoPanel.class.getResource("overvideo.mp4").toString());
         player = new MediaPlayer(m);
         MediaView viewer = new MediaView(player);
         StackPane root = new StackPane();

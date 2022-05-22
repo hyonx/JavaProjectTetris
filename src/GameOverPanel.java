@@ -15,10 +15,10 @@ public class GameOverPanel extends JPanel{
     //读入ImageIcon
     static{
         try{
-            restartImage = new ImageIcon("src/startAgainImage.png");
-            restartImageEntered = new ImageIcon("src/startAgainImageEntered.png");
-            homeImage = new ImageIcon("src/homeAgainImage.png");
-            homeImageEntered = new ImageIcon("src/homeAgainImageEntered.png");
+            restartImage = new ImageIcon(GameOverPanel.class.getResource("startAgainImage.png"));
+            restartImageEntered = new ImageIcon(GameOverPanel.class.getResource("startAgainImageEntered.png"));
+            homeImage = new ImageIcon(GameOverPanel.class.getResource("homeAgainImage.png"));
+            homeImageEntered = new ImageIcon(GameOverPanel.class.getResource("homeAgainImageEntered.png"));
         }catch(Exception e){
             e.printStackTrace();
         }

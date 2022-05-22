@@ -47,7 +47,7 @@ public class MainFrame {
 
         //将窗口的主容器设置为mainPanel,以及设置大小及状态。
         frame.setContentPane(mainPanel);
-        frame.setSize(520*2, 570*2);
+        frame.setSize(535*2, 580*2);
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);

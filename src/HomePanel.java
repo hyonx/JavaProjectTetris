@@ -16,12 +16,12 @@ public class HomePanel extends JPanel {
     //读入ImageIcon值
     static{
         try{
-            startImage = new ImageIcon("src/startimage.png");
-            startImageEntered = new ImageIcon("src/startimageEntered.png");
-            loadLabelImage = new ImageIcon("src/loadLabelimage.png");
-            loadLabelImageEntered = new ImageIcon("src/loadLabelimageEntered.png");
-            ruleImage = new ImageIcon("src/ruleimage.png");
-            ruleImageEntered = new ImageIcon("src/ruleimageEntered.png");
+            startImage = new ImageIcon(HomePanel.class.getResource("startimage.png"));
+            startImageEntered = new ImageIcon(HomePanel.class.getResource("startimageEntered.png"));
+            loadLabelImage = new ImageIcon(HomePanel.class.getResource("loadLabelimage.png"));
+            loadLabelImageEntered = new ImageIcon("loadLabelimageEntered.png");
+            ruleImage = new ImageIcon(HomePanel.class.getResource("ruleimage.png"));
+            ruleImageEntered = new ImageIcon(HomePanel.class.getResource("ruleimageEntered.png"));
         }catch(Exception e){
             e.printStackTrace();
         }

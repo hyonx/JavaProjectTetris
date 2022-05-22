@@ -9,7 +9,7 @@ public class RulePanel extends JPanel {
     //读入ImageIcon值
     static{
         try{
-            okImage = new ImageIcon("src/OKImageEntered.png");
+            okImage = new ImageIcon(RulePanel.class.getResource("OKImageEntered.png"));
         }catch(Exception e){
             e.printStackTrace();
         }

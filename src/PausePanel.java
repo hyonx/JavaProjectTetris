@@ -21,14 +21,14 @@ public class PausePanel extends JPanel{
     //读入ImageIcon
     static {
         try {
-            startAgainImage = new ImageIcon("src/startAgainImage.png");
-            startAgainImageEntered = new ImageIcon("src/startAgainImageEntered.png");
-            homeAgainImage = new ImageIcon("src/homeAgainImage.png");
-            homeAgainImageEntered = new ImageIcon("src/homeAgainImageEntered.png");
-            saveImage = new ImageIcon("src/saveImage.png");
-            saveImageEntered = new ImageIcon("src/saveImageEntered.png");
-            ContinueImage = new ImageIcon("src/ContinueImage.png");
-            ContinueImageEntered = new ImageIcon("src/ContinueImageEntered.png");
+            startAgainImage = new ImageIcon(PausePanel.class.getResource("startAgainImage.png"));
+            startAgainImageEntered = new ImageIcon(PausePanel.class.getResource("startAgainImageEntered.png"));
+            homeAgainImage = new ImageIcon(PausePanel.class.getResource("homeAgainImage.png"));
+            homeAgainImageEntered = new ImageIcon(PausePanel.class.getResource("homeAgainImageEntered.png"));
+            saveImage = new ImageIcon(PausePanel.class.getResource("saveImage.png"));
+            saveImageEntered = new ImageIcon(PausePanel.class.getResource("saveImageEntered.png"));
+            ContinueImage = new ImageIcon(PausePanel.class.getResource("ContinueImage.png"));
+            ContinueImageEntered = new ImageIcon(PausePanel.class.getResource("ContinueImageEntered.png"));
         } catch (Exception e) {
             e.printStackTrace();
         }
