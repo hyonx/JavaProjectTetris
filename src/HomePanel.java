@@ -19,7 +19,7 @@ public class HomePanel extends JPanel {
             startImage = new ImageIcon(HomePanel.class.getResource("startimage.png"));
             startImageEntered = new ImageIcon(HomePanel.class.getResource("startimageEntered.png"));
             loadLabelImage = new ImageIcon(HomePanel.class.getResource("loadLabelimage.png"));
-            loadLabelImageEntered = new ImageIcon("loadLabelimageEntered.png");
+            loadLabelImageEntered = new ImageIcon(HomePanel.class.getResource("loadLabelimageEntered.png"));
             ruleImage = new ImageIcon(HomePanel.class.getResource("ruleimage.png"));
             ruleImageEntered = new ImageIcon(HomePanel.class.getResource("ruleimageEntered.png"));
         }catch(Exception e){
