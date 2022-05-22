@@ -20,7 +20,7 @@ public class Tetris extends JPanel implements Runnable {
     public Tetris(){
         this.setLayout(null);
         pause = new JLabel();
-        pause.setBounds(320*2,313*2,130*2,55*2);
+        pause.setBounds(320*2,313*2,140*2,55*2);
         pause.setVisible(true);
         this.add(pause);
     }
@@ -67,8 +67,8 @@ public class Tetris extends JPanel implements Runnable {
             gameOver = ImageIO.read(Tetris.class.getResource("GameOverBackground.png"));
             tetris = ImageIO.read(Tetris.class.getResource("q.png"));
             Pause=ImageIO.read(Tetris.class.getResource("pauseBackground.png"));
-            pauseButtonImage1 = ImageIO.read(Tetris.class.getResource("pauseButtonImage1.png"));
-            pauseButtonImage2 = ImageIO.read(Tetris.class.getResource("pauseButtonImage2.png"));
+            pauseButtonImage1 = ImageIO.read(Tetris.class.getResource("pauseButtonImage.png"));
+            pauseButtonImage2 = ImageIO.read(Tetris.class.getResource("pauseButtonImageEntered.png"));
             Rule = ImageIO.read(Tetris.class.getResource("rule.png"));
         } catch (Exception e) {
             e.printStackTrace();
@@ -188,9 +188,9 @@ public class Tetris extends JPanel implements Runnable {
 
     public void paintPauseLabel(Graphics g){
         if(director){
-            g.drawImage(pauseButtonImage2, 300*2+70,313*2+20, null);
+            g.drawImage(pauseButtonImage2, 300*2+40,313*2, null);
         }
-        else{g.drawImage(pauseButtonImage1, 300*2+70,313*2+20, null);
+                else{g.drawImage(pauseButtonImage1, 300*2+40,313*2, null);
         }
     }
 
