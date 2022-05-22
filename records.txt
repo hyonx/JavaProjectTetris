@@ -1,4 +1,4 @@
-250 0 0
+800 0 0
 null
 null
 null
@@ -201,16 +201,16 @@ null
 null
 O
 4
-4
+0
 orange.png
 5
-4
+0
 orange.png
 4
-5
+1
 orange.png
 5
-5
+1
 orange.png
 O
 4
