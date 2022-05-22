@@ -407,14 +407,14 @@ public class MainFrame {
             }
             @Override
             public void mouseEntered(MouseEvent e) {
-            videoPanel.setImage(VideoPanel.OK, VideoPanel.OKImageEntered);
-            pausePanel.repaint();
+            gameOverPanel.setImage(gameOverPanel.home, gameOverPanel.homeImageEntered);
+            gameOverPanel.repaint();
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-            pausePanel.setImage(videoPanel.OK, VideoPanel.OKImage);
-            pausePanel.repaint();
+                gameOverPanel.setImage(gameOverPanel.home, gameOverPanel.homeImage);
+                gameOverPanel.repaint();
             }
         });
 

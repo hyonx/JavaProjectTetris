@@ -44,7 +44,11 @@ public class VideoPanel extends JFXPanel {
         this.add(OK);
         OK.setVisible(true);
     }
-
+    //构造setImage方法 以便在mainFrame调用
+    public void setImage(JLabel label,ImageIcon icon){
+        icon.setImage(icon.getImage().getScaledInstance(380,140,1));
+        label.setIcon(icon);
+    }
     //创建showVideo方法 以便在mainFrame里面调用 从而展示结束视频
     public void showVideo () {
         File videoSource = new File("src/overvideo.mp4");
@@ -56,4 +60,5 @@ public class VideoPanel extends JFXPanel {
         root.getChildren().add(viewer);
         this.setScene(scene);
     }
+    
 }
