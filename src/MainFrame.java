@@ -67,7 +67,7 @@ public class MainFrame {
             public void mouseClicked(MouseEvent e) {
                 Tetris.initiatLoad=true;
                 Tetris.isExit=true;
-                gamePanel.setGameState(Tetris.PLAYING);
+                Tetris.setGameState(Tetris.PLAYING);
                 cardLayout.next(mainPanel);
                 cardLayout.next(mainPanel);
             }
@@ -117,7 +117,7 @@ public class MainFrame {
             public void mouseClicked(MouseEvent e) {
                 Tetris.initiatLoad=true;
                 Tetris.isExit=true;
-                gamePanel.setGameState(Tetris.PLAYING);
+                Tetris.setGameState(Tetris.PLAYING);
                 cardLayout.next(mainPanel);
             }
             @Override
@@ -140,7 +140,7 @@ public class MainFrame {
             public void mouseClicked(MouseEvent e) {
                 Tetris.initiatLoad=true;
                 Tetris.isExit=true;
-                gamePanel.setGameState(Tetris.PLAYING);
+                Tetris.setGameState(Tetris.PLAYING);
                 cardLayout.previous(mainPanel);
             }
         });
@@ -152,20 +152,20 @@ public class MainFrame {
                 Tetris.initiatLoad=true;
                 Tetris.isExit=true;
                 Tetris.flag=false;
-                gamePanel.setGameState(Tetris.PLAYING);
+                Tetris.setGameState(Tetris.PLAYING);
                 cardLayout.next(mainPanel);
                 Tetris.setSpeed(800);
                 new Thread(gamePanel).start();
             }
             @Override
             public void mouseEntered(MouseEvent e) {
-                difficultyPanel.setImage(difficultyPanel.easy, difficultyPanel.easyImageEntered);
+                difficultyPanel.setImage(difficultyPanel.easy, DifficultyPanel.easyImageEntered);
                 difficultyPanel.repaint();
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                difficultyPanel.setImage(difficultyPanel.easy, difficultyPanel.easyImage);
+                difficultyPanel.setImage(difficultyPanel.easy, DifficultyPanel.easyImage);
                 difficultyPanel.repaint();
             }
 
@@ -178,20 +178,20 @@ public class MainFrame {
                 Tetris.initiatLoad=true;
                 Tetris.isExit=true;
                 Tetris.flag=false;
-                gamePanel.setGameState(0);
+                Tetris.setGameState(0);
                 cardLayout.next(mainPanel);
                 Tetris.setSpeed(400);
                 new Thread(gamePanel).start();
             }
             @Override
             public void mouseEntered(MouseEvent e) {
-                difficultyPanel.setImage(difficultyPanel.middle, difficultyPanel.middleImageEntered);
+                difficultyPanel.setImage(difficultyPanel.middle, DifficultyPanel.middleImageEntered);
                 difficultyPanel.repaint();
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                difficultyPanel.setImage(difficultyPanel.middle, difficultyPanel.middleImage);
+                difficultyPanel.setImage(difficultyPanel.middle, DifficultyPanel.middleImage);
                 difficultyPanel.repaint();
             }
         });
@@ -203,20 +203,20 @@ public class MainFrame {
                 Tetris.initiatLoad=true;
                 Tetris.isExit=true;
                 Tetris.flag=false;
-                gamePanel.setGameState(0);
+                Tetris.setGameState(0);
                 cardLayout.next(mainPanel);
                 Tetris.setSpeed(250);
                 new Thread(gamePanel).start();
             }
             @Override
             public void mouseEntered(MouseEvent e) {
-                difficultyPanel.setImage(difficultyPanel.hard, difficultyPanel.hardImageEntered);
+                difficultyPanel.setImage(difficultyPanel.hard, DifficultyPanel.hardImageEntered);
                 difficultyPanel.repaint();
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                difficultyPanel.setImage(difficultyPanel.hard, difficultyPanel.hardImage);
+                difficultyPanel.setImage(difficultyPanel.hard, DifficultyPanel.hardImage);
                 difficultyPanel.repaint();
             }
         });
@@ -227,7 +227,7 @@ public class MainFrame {
             public void mouseClicked(MouseEvent e) {
                 Tetris.exit= false;
                 Tetris.flag=true;
-                gamePanel.setGameState(Tetris.PAUSE);
+                Tetris.setGameState(Tetris.PAUSE);
                 cardLayout.next(mainPanel);
             }
             @Override
@@ -248,19 +248,19 @@ public class MainFrame {
                 Tetris.exit= false;
                 Tetris.isExit=false;
                 Tetris.flag=false;
-                gamePanel.setGameState(Tetris.PLAYING);
+                Tetris.setGameState(Tetris.PLAYING);
                 cardLayout.previous(mainPanel);
                 new Thread(gamePanel).start();
             }
             @Override
             public void mouseEntered(MouseEvent e) {
-                pausePanel.setImage(pausePanel.Continue, pausePanel.ContinueImageEntered);
+                pausePanel.setImage(pausePanel.Continue, PausePanel.ContinueImageEntered);
                 pausePanel.repaint();
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                pausePanel.setImage(pausePanel.Continue, pausePanel.ContinueImage);
+                pausePanel.setImage(pausePanel.Continue, PausePanel.ContinueImage);
                 pausePanel.repaint();
             }
         });
@@ -274,20 +274,20 @@ public class MainFrame {
                 Tetris.exit= false;
                 Tetris.isExit=true;
                 Tetris.flag=true;
-                gamePanel.setGameState(Tetris.PLAYING);
+                Tetris.setGameState(Tetris.PLAYING);
                 cardLayout.first(mainPanel);
                 cardLayout.next(mainPanel);
                 cardLayout.next(mainPanel);
             }
             @Override
             public void mouseEntered(MouseEvent e) {
-                pausePanel.setImage(pausePanel.startAgain, pausePanel.startAgainImageEntered);
+                pausePanel.setImage(pausePanel.startAgain, PausePanel.startAgainImageEntered);
                 pausePanel.repaint();
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                pausePanel.setImage(pausePanel.startAgain, pausePanel.startAgainImage);
+                pausePanel.setImage(pausePanel.startAgain, PausePanel.startAgainImage);
                 pausePanel.repaint();
             }
         });
@@ -334,13 +334,13 @@ public class MainFrame {
             }
             @Override
             public void mouseEntered(MouseEvent e) {
-                pausePanel.setImage(pausePanel.save, pausePanel.saveImageEntered);
+                pausePanel.setImage(pausePanel.save, PausePanel.saveImageEntered);
                 pausePanel.repaint();
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                pausePanel.setImage(pausePanel.save, pausePanel.saveImage);
+                pausePanel.setImage(pausePanel.save, PausePanel.saveImage);
                 pausePanel.repaint();
             }
         });
@@ -350,18 +350,18 @@ public class MainFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 Tetris.exit= false;
-                gamePanel.setGameState(Tetris.HOME);
+                Tetris.setGameState(Tetris.HOME);
                 cardLayout.first(mainPanel);
             }
             @Override
             public void mouseEntered(MouseEvent e) {
-                pausePanel.setImage(pausePanel.homeAgain, pausePanel.homeAgainImageEntered);
+                pausePanel.setImage(pausePanel.homeAgain, PausePanel.homeAgainImageEntered);
                 pausePanel.repaint();
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                pausePanel.setImage(pausePanel.homeAgain, pausePanel.homeAgainImage);
+                pausePanel.setImage(pausePanel.homeAgain, PausePanel.homeAgainImage);
                 pausePanel.repaint();
             }
         });
@@ -380,7 +380,7 @@ public class MainFrame {
             public void mouseClicked(MouseEvent e) {
                 Tetris.isExit=true;
                 Tetris.initiatLoad=true;
-                gamePanel.setGameState(Tetris.HOME);
+                Tetris.setGameState(Tetris.HOME);
                 cardLayout.first(mainPanel);
                 cardLayout.next(mainPanel);
                 cardLayout.next(mainPanel);
@@ -402,18 +402,18 @@ public class MainFrame {
         gameOverPanel.home.addMouseListener(new MouseInputAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                gamePanel.setGameState(Tetris.HOME);
+                Tetris.setGameState(Tetris.HOME);
                 cardLayout.first(mainPanel);
             }
             @Override
             public void mouseEntered(MouseEvent e) {
-            gameOverPanel.setImage(gameOverPanel.home, gameOverPanel.homeImageEntered);
+            gameOverPanel.setImage(gameOverPanel.home, GameOverPanel.homeImageEntered);
             gameOverPanel.repaint();
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                gameOverPanel.setImage(gameOverPanel.home, gameOverPanel.homeImage);
+                gameOverPanel.setImage(gameOverPanel.home, GameOverPanel.homeImage);
                 gameOverPanel.repaint();
             }
         });
@@ -434,7 +434,7 @@ public class MainFrame {
             cardLayout.last(mainPanel);//切换至最后一个面板 即视频面板
             videoPanel.showVideo();//调用showVideo方法 播放视频
             videoPanel.player.setAutoPlay(true);//让视频自动播放
-            gamePanel.setGameState(Tetris.PLAYING);//设置游戏状态从gameOver变为Playing
+            Tetris.setGameState(Tetris.PLAYING);//设置游戏状态从gameOver变为Playing
         }
     }
 }

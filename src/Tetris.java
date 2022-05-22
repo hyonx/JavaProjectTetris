@@ -688,14 +688,14 @@ public class Tetris extends JPanel implements Runnable {
 
             //若initiatLoad为true 开始新游戏
             if (initiatLoad) {
-                this.setGameState(PLAYING);
-                this.currentOne = Tetromino.randomOne();
-                this.nextOne = Tetromino.randomOne();
+                setGameState(PLAYING);
+                currentOne = Tetromino.randomOne();
+                nextOne = Tetromino.randomOne();
                 totalScore = 0;
                 totalLine = 0;
             }
             else{//若initiatLoad为false 读取存档
-                this.setGameState(PLAYING);
+                setGameState(PLAYING);
 
                 try {
                     File file = new File("records.txt");
