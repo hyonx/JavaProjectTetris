@@ -76,7 +76,7 @@ public class Tetris extends JPanel implements Runnable {
     }
 
 
-    //定义四个变量 代表游戏状态
+    //定义四个常量 代表游戏状态
     public static final int PLAYING = 0;
     public static final int PAUSE = 1;
     public static final int GAMEOVER = 2;
@@ -186,20 +186,22 @@ public class Tetris extends JPanel implements Runnable {
     //移入pause label，director设为true，移出设为false
     private static boolean director=false;
 
-    public void paintPauseLabel(Graphics g){
-        if(director){
-            g.drawImage(pauseButtonImage2, 300*2+40,313*2, null);
-        }
-                else{g.drawImage(pauseButtonImage1, 300*2+40,313*2, null);
-        }
-    }
-
     //创建setDirector方法 以便在mainFrame里控制pause label图片
     public  void setDirector(boolean b){
         director = b;
     }
 
+    //根据director的值来判断绘制哪张pause图片。
+    public void paintPauseLabel(Graphics g){
+        if(director){
+            g.drawImage(pauseButtonImage2, 300*2+40,313*2, null);
+        }
+        else{g.drawImage(pauseButtonImage1, 300*2+40,313*2, null);
+        }
+    }
 
+   
+    
     //判断currentOne是否与已经落地的方块重合 返回boolean
     private boolean coincide() {
         Cell[] cells = currentOne.cells;
@@ -593,7 +595,7 @@ public class Tetris extends JPanel implements Runnable {
 
             //点击pause label后 游戏状态变为PAUSE 退出循环
             if(game_state==PAUSE)
-                break;;
+                break;
 
             //如果当前游戏状态为PLAYING
             if (game_state == PLAYING) {

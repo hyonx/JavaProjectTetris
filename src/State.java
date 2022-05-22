@@ -1,5 +1,6 @@
 //This class is used to describe the rotation state of a certain block.
 public class State {
+    //分别定义顺时针旋转中四个行标和四个列标的变换为row0....col3.
         private int row0,col0,row1,col1,row2,col2,row3,col3;
         public State(){}
         public State(int col0,int row0,int col1,int row1,int col2,int row2,int col3,int row3){

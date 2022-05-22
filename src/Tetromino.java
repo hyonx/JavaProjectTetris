@@ -1,26 +1,27 @@
 import java.awt.image.BufferedImage;
 
 public class Tetromino {
-    Cell[] cells=new Cell[4];  //Every block has 4 cells.
+    //每个俄罗斯方块有四个cell
+    Cell[] cells=new Cell[4]; 
     State[] states;
-    int rotateNumber;
-   //This number is used to record the current state of one specific block. as large as possible.
 
-    //all cells in a block move leftward
+    //rotateNumber用于记录当前方块处于哪种旋转状态，以便在旋转中对四个cell做相应的行列变换。
+    int rotateNumber;
+    //所有cell左移
     public void moveLeft(){
         for(Cell c:cells){
             c.left();
         }
     }
 
-    //rightward
+    //右移
     public void moveRight(){
         for(Cell c: cells){
             c.right();
         }
     }
 
-    //rotate clockwise
+    //顺时针旋转
     public void rotateClockwise(){
         State s = this.states[rotateNumber%4];
         cells[0].manipulate(s.getCol0(),s.getRow0());
@@ -29,7 +30,7 @@ public class Tetromino {
         cells[3].manipulate(s.getCol3(),s.getRow3());
     }
 
-    //rotate counterclockwise
+    //逆时针旋转
     public void rotateCounter(){
         State s = this.states[(rotateNumber%4+3)%4];
         cells[0].manipulate(-s.getCol0(),-s.getRow0());
@@ -38,14 +39,14 @@ public class Tetromino {
         cells[3].manipulate(-s.getCol3(),-s.getRow3());
     }
 
-    //drop
+    //慢慢掉落
     public void softDrop(){
         for(Cell c: cells){
             c.drop();
         }
     }
 
-    //Randomly generate a type of block
+    //随机产生一个俄罗斯方块
     public static Tetromino randomOne(){
         int i = (int)(Math.random()*7);// This is for shape of the block
         Tetromino t = null;
@@ -61,7 +62,7 @@ public class Tetromino {
         return t;
     }
 
-    //This method is for generating a Tetromino object used for read currentOne and nextOne from the records.txt.
+    //通过传入tetromino的字符串，返回一个相应类型的tetromino。
     public static Tetromino generateByName(String x){
         Tetromino y = null;
         if(x.equals("T")){
@@ -95,7 +96,7 @@ public class Tetromino {
         return y;
     }
 
-    //This method returns the type of the Tetromino object.
+    //返回表示某一个tetromino类型的字符串。
     public  String getTetrominoType(){
         String s = "";
         if(this instanceof T){
@@ -121,10 +122,10 @@ public class Tetromino {
         }
         return s;
     }
-    //This is for generating random colors with certain pictures.It has the return value of BufferedImage.
+    //随机返回某个颜色的小方块图片
     public static BufferedImage randomColor(){
         BufferedImage t = null;
-        int i = (int)(Math.random()*7); //There are totally seven kind of colors.
+        int i = (int)(Math.random()*7); //总过七种颜色
         switch (i){
             case 0:t=Tetris.blue;break;
             case 1:t=Tetris.orange;break;

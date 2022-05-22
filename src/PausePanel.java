@@ -18,7 +18,7 @@ public class PausePanel extends JPanel{
     public static ImageIcon ContinueImage;
     public static ImageIcon ContinueImageEntered;
 
-    //读入ImageIcon值
+    //读入ImageIcon
     static {
         try {
             startAgainImage = new ImageIcon("src/startAgainImage.png");

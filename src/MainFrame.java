@@ -226,7 +226,7 @@ public class MainFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 Tetris.exit= false;
-                Tetris.flag=true;
+                Tetris.flag=false;
                 Tetris.setGameState(Tetris.PAUSE);
                 cardLayout.next(mainPanel);
             }
