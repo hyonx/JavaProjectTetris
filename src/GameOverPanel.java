@@ -41,9 +41,10 @@ public class GameOverPanel extends JPanel{
     }
     public void paint(Graphics g){
         g.drawImage(Tetris.gameOver, 0, -150, null);
-        g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30*2));
-        g.drawString("SCORES:" + Tetris.getTotalScore(), 50*2, 250*2);
-        g.drawString("LINES:" + Tetris.getTotalLine(), 340*2, 250*2);
+        g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 40*2));
+        g.setColor(new Color(255,185,15));
+        g.drawString("SCORES:" + Tetris.getTotalScore(), 148*2, 180*2);
+        g.drawString("LINES:" + Tetris.getTotalLine(), 150*2, 250*2);
         super.paintChildren(g);
     }
     public void setImage(JLabel b,ImageIcon i){

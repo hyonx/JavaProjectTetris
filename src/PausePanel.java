@@ -73,7 +73,7 @@ public class PausePanel extends JPanel{
     }
 
     public void paint(Graphics g){
-        g.drawImage(Tetris.Pause, 0, -80, null);
+        g.drawImage(Tetris.Pause, 0, 0, null);
         super.paintChildren(g);
     }
     public void setImage(JLabel b,ImageIcon i){

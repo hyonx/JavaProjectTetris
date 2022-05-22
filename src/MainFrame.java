@@ -464,13 +464,13 @@ public class MainFrame {
             }
             @Override
             public void mouseEntered(MouseEvent e) {
-            videoPanel.setImage(VideoPanel.OK, VideoPanel.OKImage);
+            videoPanel.setImage(VideoPanel.OK, VideoPanel.OKImageEntered);
             pausePanel.repaint();
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-            pausePanel.setImage(videoPanel.OK, VideoPanel.OKImageEntered);
+            pausePanel.setImage(videoPanel.OK, VideoPanel.OKImage);
             pausePanel.repaint();
             }
         });
